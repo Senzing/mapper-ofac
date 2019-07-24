@@ -1,8 +1,9 @@
+#! /usr/bin/env python3
+
 import os
 import sys
 import argparse
-try: import urllib.request as urllib #--python3
-except: import urllib #--python27
+import urllib.request as urllib
 import xml.etree.ElementTree as etree
 from datetime import datetime
 import json
@@ -27,7 +28,7 @@ def getValue (segment, tagName):
     return value
     
 #----------------------------------------
-def formatDate(inStr):
+def formatDate(inStr, outputFormat = '%Y-%m-%d'):
     """ format a date as yyyy-mm-dd """
     #--bypass if not complete
     outStr = inStr
@@ -45,7 +46,7 @@ def formatDate(inStr):
 
     for format in formatList:
         #outStr = datetime.strftime(datetime.strptime(inStr, format), '%Y-%m-%d')
-        try: outStr = datetime.strftime(datetime.strptime(inStr, format), '%Y-%m-%d')
+        try: outStr = datetime.strftime(datetime.strptime(inStr, format), outputFormat)
         except: pass
         else: 
             break
@@ -59,18 +60,14 @@ def processFile(inputFile, outputFile, includeAll):
     print('Reading from: %s ...' % inputFile)
 
     #--read the file into memory
-    if inputFile.upper().startswith('HTTP'):
-        try: f = urllib.urlopen(inputFile)
-        except:
-            print('could not open %s!' % inputFile)
-            return -1
-    else:
-        try: 
-            f = open(inputFile)
-        except IOError as err:
-            print(err)
-            print('could not open %s!' % inputFile)
-            return -1
+    try: f = open(inputFile)
+    except IOError as err:
+        print('')
+        print(err)
+        print('could not open %s!' % inputFile)
+        print('')
+        return -1
+
     xmlDoc = f.read()
     f.close()
     if type(xmlDoc) != str: #--urllib returns bytes for python3
@@ -85,30 +82,37 @@ def processFile(inputFile, outputFile, includeAll):
     #--try to parse
     try: xmlRoot = etree.fromstring(xmlDoc)
     except etree.ParseError as err:
+        print('')
         print('XML Error: %s' % err)
+        print('')
         return -1
     except:
+        print('')
         print('%s is not a valid XML file!' % inputFile)
+        print('')
         return -1
     
     #--add the publish date to the file name if they left the default
+    defaultPath = os.path.dirname(os.path.abspath(inputFile))
     publishDate = getValue(xmlRoot, 'publshInformation/Publish_Date')
     print('Publish Date: %s' % publishDate)
-    if outputFile == 'ofac.json':
-        outputFile = 'ofac-%s.json' % formatDate(publishDate)
+    if outputFile == 'ofac.json': #--the default
+        outputFile = defaultPath + os.path.sep + 'ofac-%s.json' % formatDate(publishDate)
     
     #--open output file
     print('writing to %s ...' % outputFile)
-    if sys.version[0] == '2':
-        outputHandle = open(outputFile, "w")
-    else:
-        outputHandle = open(outputFile, "w", encoding='utf-8', newline='')
+    try: outputHandle = open(outputFile, "w", encoding='utf-8', newline='')
+    except IOError as err:
+        print('')
+        print(err)
+        print('could not open %s!' % outputFile)
+        print('')
+        return -1
 
     #--for each sdn entry record
     rowCnt = 0
     for sdnEntry in xmlRoot.findall('sdnEntry'):
-        rowCnt += 1 
-        
+
         #--filter for only entities and individuals unless they want to include all
         g2EntityType = None
         if getValue(sdnEntry, 'sdnType') in ('Entity', 'Individual') or includeAll:
@@ -121,18 +125,21 @@ def processFile(inputFile, outputFile, includeAll):
             if getValue(sdnEntry, 'sdnType') == 'Aircraft':
                 g2EntityType = 'AIRCRAFT'
         if g2EntityType:
-
+            rowCnt += 1 
+        
             #--note: attributes used for resolution must be upper case
             
             jsonData = {}
             jsonData['DATA_SOURCE'] = 'OFAC'
             jsonData['ENTITY_TYPE'] = g2EntityType
+            jsonData['RECORD_TYPE'] = g2EntityType
             jsonData['RECORD_ID'] = getValue(sdnEntry, 'uid')
-            jsonData['publishDate'] = publishDate
+            jsonData['OFAC_ID'] = getValue(sdnEntry, 'uid')
+            jsonData['PUBLISH_DATE'] = publishDate
             if getValue(sdnEntry, 'title'):
-                jsonData['sdnTitle'] = getValue(sdnEntry, 'title')
+                jsonData['SDN_TITLE'] = getValue(sdnEntry, 'title')
             if getValue(sdnEntry, 'remarks'):
-                jsonData['sdnRemarks'] = getValue(sdnEntry, 'remarks')
+                jsonData['SDN_REMARKS'] = getValue(sdnEntry, 'remarks')
                 
             #--add the SDN programs (usually only one)
             programList = None
@@ -143,7 +150,7 @@ def processFile(inputFile, outputFile, includeAll):
                     else:    
                         programList = programList + ', ' + getValue(programRecord, 'program')
             if programList:
-                jsonData['sdnProgram'] = programList
+                jsonData['SDN_PROGRAM'] = programList
 
             #--get the names 
             nameList = []
@@ -177,19 +184,41 @@ def processFile(inputFile, outputFile, includeAll):
 
             #attributes
             attrList = []
+            yobList = []
+            countryList = []
             #--add any DOBs (note: sublists must be dictionaries even if only a single field)
             for subRecord in sdnEntry.findall('dateOfBirthList/dateOfBirthItem'):
                 if getValue(subRecord, 'dateOfBirth'):
-                    attrList.append({'DATE_OF_BIRTH': formatDate(getValue(subRecord, 'dateOfBirth'))})
+                    if formatDate(getValue(subRecord, 'dateOfBirth')):
+                        attrList.append({'DATE_OF_BIRTH': formatDate(getValue(subRecord, 'dateOfBirth'))})
+                        attrList.append({'YEAR_OF_BIRTH': formatDate(getValue(subRecord, 'dateOfBirth'), '%Y')})
+                        yobList.append(formatDate(getValue(subRecord, 'dateOfBirth'), '%Y'))
+
             for subRecord in sdnEntry.findall('placeOfBirthList/placeOfBirthItem'):
                 if getValue(subRecord, 'placeOfBirth'):
-                    attrList.append({'PLACE_OF_BIRTH': formatDate(getValue(subRecord, 'placeOfBirth'))})
+                    attrList.append({'PLACE_OF_BIRTH': getValue(subRecord, 'placeOfBirth')})
+                    if getValue(subRecord, 'placeOfBirth').upper() in isoCountry: #--also map the code for matching
+                        attrList.append({'POB_COUNTRY': isoCountry[getValue(subRecord, 'placeOfBirth').upper()]})
+                        countryList.append(isoCountry[getValue(subRecord, 'placeOfBirth').upper()])
+
             for subRecord in sdnEntry.findall('nationalityList/nationality'):
                 if getValue(subRecord, 'country'):
-                    attrList.append({'NATIONALITY': formatDate(getValue(subRecord, 'country'))})
+                    attrList.append({'NATIONALITY': getValue(subRecord, 'country')})
+                    if getValue(subRecord, 'country').upper() in isoCountry: #--also map the code for matching
+                        attrList.append({'NATIONALITY_COUNTRY': isoCountry[getValue(subRecord, 'country').upper()]})
+                        countryList.append(isoCountry[getValue(subRecord, 'country').upper()])
+
             for subRecord in sdnEntry.findall('citizenshipList/citizenship'):
                 if getValue(subRecord, 'country'):
-                    attrList.append({'CITIZENSHIP': formatDate(getValue(subRecord, 'country'))})
+                    attrList.append({'CITIZENSHIP': getValue(subRecord, 'country')})
+                    if getValue(subRecord, 'country').upper() in isoCountry: #--also map the code for matching
+                        attrList.append({'CITIZENSHIP_COUNTRY': isoCountry[getValue(subRecord, 'country').upper()]})
+                        countryList.append(isoCountry[getValue(subRecord, 'country').upper()])
+
+            for yobKey in set(yobList):
+                for cntryKey in set(countryList):
+                    attrList.append({"YOB_COUNTRY": yobKey + '|' + cntryKey})
+
             if attrList:
                 jsonData['ATTR_LIST'] = attrList
 
@@ -218,7 +247,7 @@ def processFile(inputFile, outputFile, includeAll):
                 jsonData['ADDR_LIST'] = addrList
 
             #--add any ID numbers
-            otherList = []
+            otherDict = {}
             idList = []
             for subRecord in sdnEntry.findall('idList/id'):
                 if getValue(subRecord, 'idNumber'):
@@ -239,7 +268,7 @@ def processFile(inputFile, outputFile, includeAll):
                             idData['PASSPORT_COUNTRY'] = getValue(subRecord, 'idCountry')
                             
                     elif g2EntityType in ('PERSON','ORGANIZATION') and getValue(subRecord, 'idCountry'): #--removes some of the garbage values (if it wasn't issued by a country its just free text or gender
-                        #rowData['NATIONAL_ID_TYPE'] = getValue(subRecord, 'idType')
+                        #--idData['NATIONAL_ID_TYPE'] = getValue(subRecord, 'idType')
                         idData['NATIONAL_ID_NUMBER'] = getValue(subRecord, 'idNumber')
                         if getValue(subRecord, 'idCountry'):
                             idData['NATIONAL_ID_COUNTRY'] = getValue(subRecord, 'idCountry')
@@ -260,17 +289,19 @@ def processFile(inputFile, outputFile, includeAll):
                     elif getValue(subRecord, 'idType') == "Aircraft Tail Number":
                         idData['AIRCRAFT_TAIL_NUM'] = getValue(subRecord, 'idNumber')
 
-
                     #--everything else from any entity type
                     else:
-                        otherList.append({getValue(subRecord, 'idType'): getValue(subRecord, 'idNumber')})
+                        if getValue(subRecord, 'idType') not in otherDict:
+                            otherDict[getValue(subRecord, 'idType')] = []
+                        otherDict[getValue(subRecord, 'idType')].append(getValue(subRecord, 'idNumber'))
                     
                     if idData:
                         idList.append(idData)
             if idList:
                 jsonData['ID_LIST'] = idList
-            if otherList:
-                jsonData['OTHER_LIST'] = otherList
+            if otherDict:
+                for attr in otherDict:
+                    jsonData[attr] = ' | '.join(otherDict[attr])
                 
             #--still some vessel info in this structure
             if g2EntityType == 'VESSEL':
@@ -287,9 +318,6 @@ def processFile(inputFile, outputFile, includeAll):
                 if getValue(sdnEntry, 'vesselInfo/grossRegisteredTonnage'):
                     jsonData['grossRegisteredTonnage'] = getValue(sdnEntry, 'vesselInfo/grossRegisteredTonnage')
                     
-
-
-                
         jsonStr = json.dumps(jsonData)
         try: outputHandle.write(jsonStr + '\n')
         except IOError as err:
@@ -307,18 +335,39 @@ def processFile(inputFile, outputFile, includeAll):
 
 #----------------------------------------
 if __name__ == "__main__":
+    appPath = os.path.dirname(os.path.abspath(sys.argv[0]))
 
-    inputFile = 'http://www.treasury.gov/ofac/downloads/sdn.xml'
     outputFile = 'ofac.json'
-    includeAll = True #--set to false if you only want entities and individuals. if true will map vessels and aircraft as well    
 
-    if len(sys.argv) > 1:
-        parser = argparse.ArgumentParser()
-        parser.add_argument('-i', type=str, default=inputFile, help='ofac xml file such as sdn.xml or the url.  default is ' + inputFile)
-        parser.add_argument('-o', type=str, default=outputFile, help='output filename. default is ofac-yyyy-mm-dd.json based on the publish date')
-        args = parser.parse_args()
-        inputFile = args.i
-        outputFile = args.o
+    argparser = argparse.ArgumentParser()
+    argparser.add_argument('-i', '--inputFile', dest='inputFile', type=str, default=None, help='an sdn.xml file downloaded from https://www.treasury.gov/ofac/downloads.')
+    argparser.add_argument('-o', '--outputFile', dest='outputFile', type=str, default=outputFile, help='output filename. default is ofac-yyyy-mm-dd.json based on the publish date')
+    argparser.add_argument('-a', '--includeAll', dest='includeAll', action='store_true', default=False, help='convert all entity types including vessels and aircraft')
+
+    args = argparser.parse_args()
+    inputFile = args.inputFile
+    outputFile = args.outputFile
+    includeAll = args.includeAll
+
+    if not (inputFile):
+        print('')
+        print('Please supply an input file name with the -i parameter.')
+        print('')
+        sys.exit(1)
+
+    #--need conversion table for country codes
+    isoCountriesFile = appPath + os.path.sep + 'isoCountries.json'
+    if not os.path.exists(isoCountriesFile):
+        print('')
+        print('File %s is missing!' % (isoCountriesFile))
+        print('')
+        sys.exit(1)
+    try: isoCountry = json.load(open(isoCountriesFile,'r'))
+    except json.decoder.JSONDecodeError as err:
+        print('')
+        print('JSON error %s in %s' % (err, isoCountriesFile))
+        print('')
+        sys.exit(1)
 
     result = processFile(inputFile, outputFile, includeAll)
     
