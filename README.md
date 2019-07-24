@@ -32,7 +32,7 @@ optional arguments:
 
 1. [Installation](#installation)
 2. [Configuring Senzing](#Configuring-Senzing)
-3. [Running ofac2json.py](#Running-ofac2json.py)
+3. [Running the ofac2json mapper](#Running-the-ofac2json-mapper)
 4. [Loading into Senzing](#Loading-into-Senzing)
 5. [Mapping other data sources](#Mapping-other-data-sources)
 5. [Optional ini file parameter](#Optional-ini-file-parameter)
@@ -70,12 +70,12 @@ Configuration updates include:
     - **PLACE_OF_BIRTH** This is a feature missing from the default configuration of early version of Senzing
 
 *WARNING:* the following settings are commented out as they affect performance and quality. Only use them if you understand and are OK with the effects.
-- sets NAME and ADDRESS to be used for candidates. Normally just their hashes are used to find candidates.  The affect is performance is slightly degraded.
-- set distinct off.  Normally this is on to prevent lower strength AKAs to cause matches as only the most distinct names are considered. The affect is more potential false positives.
+- sets NAME and ADDRESS to be used for candidates. Normally just their hashes are used to find candidates.  The effect is performance is slightly degraded.
+- set distinct off.  Normally this is on to prevent lower strength AKAs to cause matches as only the most distinct names are considered. The effect is more potential false positives.
 
 Finally, the additional entity types and features needed to load aircraft and vessels are also commented out.  Leave them commented out unless you are trying to match aircraft and vessels as well.
 
-### Running ofac2json.py
+### Running the ofac2json mapper
 
 First, download the latest sdn.xml file from https://www.treasury.gov/ofac/downloads. This is the only file needed. Place it on a directory where you will store other source data files loaded into Senzing. It would be a good practice to archive these files somewhere as well.  At the beginning of each sdn.xml file is a publish date that is good to append to the end of the archived file name as we have done when the file is converted to json.
 
@@ -83,13 +83,12 @@ Second, run the mapper.  Typical usage:
 ```console
 python ofac2json.py -i /<path-to-file>/sdn.xml
 ```
-This will create an ofac-yyyy-mm-dd.json file on the same directory as the sdn.xml file that contains only the 
-individuals and entities in the sdn.xml.
+This will create an ofac-yyyy-mm-dd.json (based on the publish date) file on the same directory as the sdn.xml file that contains only the individuals and entities in the sdn.xml.
 
 - Use the -o parameter if you want a supply a different output file name or location
 - Use the -a parameter to include the aircraft and vessel OFAC records.
 
-### Loading Senzing
+### Loading into Senzing
 
 If you use the G2Loader program to load your data, from the /opt/senzing/g2/python directory ...
 ```console
