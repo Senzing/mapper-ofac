@@ -74,8 +74,8 @@ Configuration updates include:
     - **PLACE_OF_BIRTH** This is a feature missing from the default configuration of early version of Senzing
 
 *WARNING:* the following settings are commented out as they affect performance and quality. Only use them if you understand and are OK with the effects.
-- sets NAME and ADDRESS to be used for candidates. Normally just their hashes are used to find candidates.  The effect is performance is slightly degraded.
-- set distinct off.  Normally this is on to prevent lower strength AKAs to cause matches as only the most distinct names are considered. The effect is more potential false positives.
+- sets **NAME** and **ADDRESS** to be used for candidates. Normally just their hashes are used to find candidates.  The effect is performance is slightly degraded.
+- set **distinct** off.  Normally this is on to prevent lower strength AKAs to cause matches as only the most distinct names are considered. The effect is more potential false positives.
 
 Finally, the additional entity types and features needed to load aircraft and vessels are also commented out.  Leave them commented out unless you are trying to match aircraft and vessels as well.
 
@@ -87,7 +87,7 @@ Second, run the mapper.  Typical usage:
 ```console
 python ofac2json.py -i /<path-to-file>/sdn.xml
 ```
-This will create an ofac-yyyy-mm-dd.json (based on the publish date) file on the same directory as the sdn.xml file that contains only the individuals and entities in the sdn.xml.
+This will create an ofac-yyyy-mm-dd.json file (based on the publish date) on the same directory as the sdn.xml file provided.
 
 - Use the -o parameter if you want a supply a different output file name or location
 - Use the -a parameter to include the aircraft and vessel OFAC records.
@@ -98,7 +98,7 @@ If you use the G2Loader program to load your data, from the /opt/senzing/g2/pyth
 ```console
 python G2Loader.py -f /<path-to-file>/ofac-yyyy-mm-dd.json
 ```
-The OFAC currently only contains 7,000 records and loads in a matter of minutes.
+The OFAC currently only contains around 7,000 records and loads in a matter of minutes.
 
 If you use the API directly, then you just need to perform an addRecord for each line of the file.
 
@@ -113,9 +113,10 @@ Watch lists are harder to match simply because often the only data they contain 
 
 There is also an ini file change that can benefit watch list matching.  In the pipeline section of the main g2 ini file you use, such as the /opt/senzing/g2/python/G2Module.ini, place the following entry in the pipeline section as show below.
 
+```console
 [pipeline]
  NAME_EFEAT_WATCHLIST_MODE=Y
+```
 
 This effectively doubles the number of name hashes created which improves the chances of finding a match at the cost of performance.  Consider creating a separate g2 ini file used just for searching and include this parameter.  If you include it during the loading of data, only have it on while loading the watch list as the load time will actually more than double! 
-
 
