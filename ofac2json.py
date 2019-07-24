@@ -198,21 +198,21 @@ def processFile(inputFile, outputFile, includeAll):
                 if getValue(subRecord, 'placeOfBirth'):
                     attrList.append({'PLACE_OF_BIRTH': getValue(subRecord, 'placeOfBirth')})
                     if getValue(subRecord, 'placeOfBirth').upper() in isoCountry: #--also map the code for matching
-                        attrList.append({'POB_COUNTRY': isoCountry[getValue(subRecord, 'placeOfBirth').upper()]})
+                        attrList.append({'POB_ISO_COUNTRY': isoCountry[getValue(subRecord, 'placeOfBirth').upper()]})
                         countryList.append(isoCountry[getValue(subRecord, 'placeOfBirth').upper()])
 
             for subRecord in sdnEntry.findall('nationalityList/nationality'):
                 if getValue(subRecord, 'country'):
                     attrList.append({'NATIONALITY': getValue(subRecord, 'country')})
                     if getValue(subRecord, 'country').upper() in isoCountry: #--also map the code for matching
-                        attrList.append({'NATIONALITY_COUNTRY': isoCountry[getValue(subRecord, 'country').upper()]})
+                        attrList.append({'NATIONALITY_ISO_COUNTRY': isoCountry[getValue(subRecord, 'country').upper()]})
                         countryList.append(isoCountry[getValue(subRecord, 'country').upper()])
 
             for subRecord in sdnEntry.findall('citizenshipList/citizenship'):
                 if getValue(subRecord, 'country'):
                     attrList.append({'CITIZENSHIP': getValue(subRecord, 'country')})
                     if getValue(subRecord, 'country').upper() in isoCountry: #--also map the code for matching
-                        attrList.append({'CITIZENSHIP_COUNTRY': isoCountry[getValue(subRecord, 'country').upper()]})
+                        attrList.append({'CITIZENSHIP_ISO_COUNTRY': isoCountry[getValue(subRecord, 'country').upper()]})
                         countryList.append(isoCountry[getValue(subRecord, 'country').upper()])
 
             if attrList:
