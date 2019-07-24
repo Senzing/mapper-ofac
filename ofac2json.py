@@ -215,10 +215,6 @@ def processFile(inputFile, outputFile, includeAll):
                         attrList.append({'CITIZENSHIP_COUNTRY': isoCountry[getValue(subRecord, 'country').upper()]})
                         countryList.append(isoCountry[getValue(subRecord, 'country').upper()])
 
-            for yobKey in set(yobList):
-                for cntryKey in set(countryList):
-                    attrList.append({"YOB_COUNTRY": yobKey + '|' + cntryKey})
-
             if attrList:
                 jsonData['ATTR_LIST'] = attrList
 

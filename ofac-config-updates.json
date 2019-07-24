@@ -12,21 +12,21 @@ addFeature {"feature": "PLACE_OF_BIRTH", "behavior": "FVM", "comparison": "STR_C
 addAttribute {"attribute": "PLACE_OF_BIRTH", "class": "ATTRIBUTE", "feature": "PLACE_OF_BIRTH", "element": "PLACE", "required": "Yes"}
 
 #--additional candidate builders for name hashes
-addFeature {"feature": "COUNTRY", "class": "OTHER", "behavior": "FVM", "anonymize": "No", "candidates": "No", "standardize": "", "expression": "", "comparison": "EXACT_COMP", "elementList": [{"element": "EXPRESSION", "expressed": "No", "compared": "Yes", "addToNameHash": "yes"}]}
-addAttribute {"attribute": "COUNTRY", "class": "ATTRIBUTE", "feature": "COUNTRY", "element": "EXPRESSION", "required": "Yes", "default": "", "advanced": "Yes", "internal": "Yes"}
+addFeature {"feature": "ISO_COUNTRY", "class": "OTHER", "behavior": "FVM", "anonymize": "No", "candidates": "No", "standardize": "", "expression": "", "comparison": "EXACT_COMP", "elementList": [{"element": "CODE", "expressed": "No", "compared": "Yes", "addToNameHash": "yes"}]}
+addAttribute {"attribute": "ISO_COUNTRY", "class": "ATTRIBUTE", "feature": "ISO_COUNTRY", "element": "CODE", "required": "Yes", "default": "", "advanced": "Yes", "internal": "Yes"}
 
-addFeature {"feature": "YEAR_OF_BIRTH", "class": "OTHER", "behavior": "FVM", "anonymize": "No", "candidates": "No", "standardize": "", "expression": "", "comparison": "EXACT_COMP", "elementList": [{"element": "EXPRESSION", "expressed": "No", "compared": "Yes", "addToNameHash": "yes"}]}
-addAttribute {"attribute": "YEAR_OF_BIRTH", "class": "ATTRIBUTE", "feature": "YEAR_OF_BIRTH", "element": "EXPRESSION", "required": "Yes", "default": "", "advanced": "Yes", "internal": "Yes"}
+addFeature {"feature": "YEAR_OF_BIRTH", "class": "OTHER", "behavior": "FVM", "anonymize": "No", "candidates": "No", "standardize": "", "expression": "", "comparison": "EXACT_COMP", "elementList": [{"element": "YEAR", "expressed": "No", "compared": "Yes", "addToNameHash": "yes"}]}
+addAttribute {"attribute": "YEAR_OF_BIRTH", "class": "ATTRIBUTE", "feature": "YEAR_OF_BIRTH", "element": "YEAR", "required": "Yes", "default": "", "advanced": "Yes", "internal": "Yes"}
 
-addFeature {"feature": "YOB_COUNTRY", "class": "OTHER", "behavior": "FVM", "anonymize": "No", "candidates": "No", "derived": "Yes", "standardize": "", "expression": "", "comparison": "EXACT_COMP", "elementList": [{"element": "EXPRESSION", "expressed": "No", "compared": "Yes", "addToNameHash": "yes"}]}
-addAttribute {"attribute": "YOB_COUNTRY", "class": "ATTRIBUTE", "feature": "YOB_COUNTRY", "element": "EXPRESSION", "required": "Yes", "default": "", "advanced": "Yes", "internal": "Yes"}
 
-#--best practice for screening - make name and address used for candidates
-setFeature {"feature": "NAME", "candidates": "Yes"}
-setFeature {"feature": "ADDRESS", "candidates": "Yes"}
+#--best practice for watch list screening - make name and address used for candidates
+#--caveat: affects performance! 
+#setFeature {"feature": "NAME", "candidates": "Yes"}
+#setFeature {"feature": "ADDRESS", "candidates": "Yes"}
 
-#--best practice for screening - turn off distinct names 
-setDistinct Off
+#--best practice for watch list screening - turn off distinct names 
+#--caveat: affects quality!  
+#setDistinct Off
 
 #--un-comment the below if loading aircraft and vessels
 
