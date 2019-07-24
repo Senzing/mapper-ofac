@@ -30,12 +30,16 @@ optional arguments:
 
 ## Contents
 
-1. [Installation](#installation)
-2. [Configuring Senzing](#Configuring-Senzing)
-3. [Running the ofac2json mapper](#Running-the-ofac2json-mapper)
-4. [Loading into Senzing](#Loading-into-Senzing)
-5. [Mapping other data sources](#Mapping-other-data-sources)
-5. [Optional ini file parameter](#Optional-ini-file-parameter)
+1. [Prerequisites](#Prerequisites)
+2. [Installation](#Installation)
+3. [Configuring Senzing](#Configuring-Senzing)
+4. [Running the ofac2json mapper](#Running-the-ofac2json-mapper)
+5. [Loading into Senzing](#Loading-into-Senzing)
+6. [Mapping other data sources](#Mapping-other-data-sources)
+7. [Optional ini file parameter](#Optional-ini-file-parameter)
+
+### Prerequisites
+- python 3.6 or higher
 
 ### Installation
 
