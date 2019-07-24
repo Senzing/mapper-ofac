@@ -9,7 +9,7 @@ senzing.
 Loading watch lists requires some special features and configurations of Senzing. These are contained in the 
 [ofac-config-updates.json](ofac-config-updates.json) file and are applied with the [G2ConfigTool.py](G2ConfigTool.py) contained in this project.
 
-**IMPORTANT NOTE: For good watch list matching, your other data sources should also map as many these same features as are available!**
+**IMPORTANT NOTE:** For good watch list matching, your other data sources should also map as many these same features as are available!
 
 Usage:
 ```console
@@ -32,7 +32,7 @@ optional arguments:
 
 1. [Installation](#installation)
 2. [Configuring Senzing](#Configuring-Senzing)
-3. [Running ofac2json](#Running-ofac2json)
+3. [Running ofac2json.py](#Running-ofac2json.py)
 4. [Loading into Senzing](#Loading-into-Senzing)
 5. [Mapping other data sources](#Mapping-other-data-sources)
 5. [Optional ini file parameter](#Optional-ini-file-parameter)
@@ -43,6 +43,8 @@ Place the the following files on a directory of your choice ...
 - [ofac2json.py](ofac2json.py) 
 - [isoCountries.json](isoCountries.json)
 - [ofac-config-updates.json](ofac-config-updates.json)
+
+*Note:* The isoCountries.json file is extensible.   It currently contains a mapping from a raw country name into a 2 digit iso country code. Additional entries can be added as desired.
 
 ### Configuring Senzing
 
@@ -66,7 +68,7 @@ Configuration updates include:
     - **ISO_COUNTRY** This is the ISO country code used to improve matching of nationality, citizenship and place of birth.
     - **OFAC_ID** This is used to help prevent watch list entries from resolving to each other.
     - **PLACE_OF_BIRTH** This is a feature missing from the default configuration of early version of Senzing
-    
+
 *WARNING:* the following settings are commented out as they affect performance and quality. Only use them if you understand and are OK with the effects.
 - sets NAME and ADDRESS to be used for candidates. Normally just their hashes are used to find candidates.  The affect is performance is slightly degraded.
 - set distinct off.  Normally this is on to prevent lower strength AKAs to cause matches as only the most distinct names are considered. The affect is more potential false positives.
@@ -106,7 +108,7 @@ Watch lists are harder to match simply because often the only data they contain 
 
 ### Optional ini file parameter
 
-There is also an ini file change that can benefit watch list matching.  In the pipeline section of the main g2 ini file you use, such as the /opt/senzing/g2/python/G2Module.ini place, the following entry in the pipeline section as show below.
+There is also an ini file change that can benefit watch list matching.  In the pipeline section of the main g2 ini file you use, such as the /opt/senzing/g2/python/G2Module.ini, place the following entry in the pipeline section as show below.
 
 [pipeline]
  NAME_EFEAT_WATCHLIST_MODE=Y
