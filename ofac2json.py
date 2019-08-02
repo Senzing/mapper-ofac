@@ -7,6 +7,7 @@ import urllib.request as urllib
 import xml.etree.ElementTree as etree
 from datetime import datetime
 import json
+import random
 
 #----------------------------------------
 def pause(question='PRESS ENTER TO CONTINUE ...'):
@@ -54,9 +55,30 @@ def formatDate(inStr, outputFormat = '%Y-%m-%d'):
     return outStr
 
 #----------------------------------------
+def updateStat(cat1, cat2, example = None):
+    if cat1 not in statPack:
+        statPack[cat1] = {}
+    if cat2 not in statPack[cat1]:
+        statPack[cat1][cat2] = {}
+        statPack[cat1][cat2]['count'] = 1
+
+    statPack[cat1][cat2]['count'] += 1
+    if example:
+        if 'examples' not in statPack[cat1][cat2]:
+            statPack[cat1][cat2]['examples'] = []
+        if example not in statPack[cat1][cat2]['examples']:
+            if len(statPack[cat1][cat2]['examples']) < 5:
+                statPack[cat1][cat2]['examples'].append(example)
+            else:
+                randomSampleI = random.randint(2,4)
+                statPack[cat1][cat2]['examples'][randomSampleI] = example
+    return
+
+#----------------------------------------
 def processFile(inputFile, outputFile, includeAll):
     """ convert the ofac sdn xml file to json for senzing  """
 
+    print('')
     print('Reading from: %s ...' % inputFile)
 
     #--read the file into memory
@@ -91,15 +113,10 @@ def processFile(inputFile, outputFile, includeAll):
         print('%s is not a valid XML file!' % inputFile)
         print('')
         return -1
-    
-    #--add the publish date to the file name if they left the default
-    defaultPath = os.path.dirname(os.path.abspath(inputFile))
     publishDate = getValue(xmlRoot, 'publshInformation/Publish_Date')
-    print('Publish Date: %s' % publishDate)
-    if outputFile == 'ofac.json': #--the default
-        outputFile = defaultPath + os.path.sep + 'ofac-%s.json' % formatDate(publishDate)
     
     #--open output file
+    print('')
     print('writing to %s ...' % outputFile)
     try: outputHandle = open(outputFile, "w", encoding='utf-8', newline='')
     except IOError as err:
@@ -125,9 +142,10 @@ def processFile(inputFile, outputFile, includeAll):
             if getValue(sdnEntry, 'sdnType') == 'Aircraft':
                 g2EntityType = 'AIRCRAFT'
         if g2EntityType:
+            updateStat('ENTITY_TYPE', g2EntityType)
             rowCnt += 1 
         
-            #--note: attributes used for resolution must be upper case
+            isoCountryList = []
             
             jsonData = {}
             jsonData['DATA_SOURCE'] = 'OFAC'
@@ -138,8 +156,10 @@ def processFile(inputFile, outputFile, includeAll):
             jsonData['PUBLISH_DATE'] = publishDate
             if getValue(sdnEntry, 'title'):
                 jsonData['SDN_TITLE'] = getValue(sdnEntry, 'title')
+                updateStat('USEFUL_DATA', 'SDN_TITLE')
             if getValue(sdnEntry, 'remarks'):
                 jsonData['SDN_REMARKS'] = getValue(sdnEntry, 'remarks')
+                updateStat('USEFUL_DATA', 'SDN_REMARKS')
                 
             #--add the SDN programs (usually only one)
             programList = None
@@ -151,6 +171,7 @@ def processFile(inputFile, outputFile, includeAll):
                         programList = programList + ', ' + getValue(programRecord, 'program')
             if programList:
                 jsonData['SDN_PROGRAM'] = programList
+                updateStat('USEFUL_DATA', 'SDN_PROGRAM')
 
             #--get the names 
             nameList = []
@@ -166,6 +187,8 @@ def processFile(inputFile, outputFile, includeAll):
                     if getValue(sdnEntry, 'firstName'):
                         nameDict['NAME_FIRST'] = getValue(sdnEntry, 'firstName')
                 nameList.append(nameDict)
+                updateStat('NAME_TYPE', 'PRIMARY')
+
             #--add any AKAs
             for subRecord in sdnEntry.findall('akaList/aka'):
                 if getValue(subRecord, 'lastName') or getValue(subRecord, 'firstName'):
@@ -179,50 +202,57 @@ def processFile(inputFile, outputFile, includeAll):
                         if getValue(subRecord, 'firstName'):
                             nameDict['NAME_FIRST'] = getValue(subRecord, 'firstName')
                     nameList.append(nameDict)
+                    updateStat('NAME_TYPE', nameDict['NAME_TYPE'])
             if nameList:
                 jsonData['NAME_LIST'] = nameList
 
-            #attributes
+            #--add any attributes (note: sublists must be dictionaries even if only a single field)
             attrList = []
-            yobList = []
-            countryList = []
-            #--add any DOBs (note: sublists must be dictionaries even if only a single field)
             for subRecord in sdnEntry.findall('dateOfBirthList/dateOfBirthItem'):
                 if getValue(subRecord, 'dateOfBirth'):
                     if formatDate(getValue(subRecord, 'dateOfBirth')):
                         attrList.append({'DATE_OF_BIRTH': formatDate(getValue(subRecord, 'dateOfBirth'))})
-                        attrList.append({'YEAR_OF_BIRTH': formatDate(getValue(subRecord, 'dateOfBirth'), '%Y')})
-                        yobList.append(formatDate(getValue(subRecord, 'dateOfBirth'), '%Y'))
+                        updateStat('ATTRIBUTE', 'DATE_OF_BIRTH')
 
             for subRecord in sdnEntry.findall('placeOfBirthList/placeOfBirthItem'):
                 if getValue(subRecord, 'placeOfBirth'):
-                    attrList.append({'PLACE_OF_BIRTH': getValue(subRecord, 'placeOfBirth')})
-                    if getValue(subRecord, 'placeOfBirth').upper() in isoCountry: #--also map the code for matching
-                        attrList.append({'POB_ISO_COUNTRY': isoCountry[getValue(subRecord, 'placeOfBirth').upper()]})
-                        countryList.append(isoCountry[getValue(subRecord, 'placeOfBirth').upper()])
+                    countryName = getValue(subRecord, 'placeOfBirth')
+                    attrList.append({'PLACE_OF_BIRTH': countryName})
+                    updateStat('ATTRIBUTE', 'PLACE_OF_BIRTH', countryName)
+                    if countryName.lower() in isoCountries: #--also map the code for matching
+                        isoCountryList.append(isoCountries[countryName.lower()])
+                    elif ',' in countryName: #--check after possible city
+                        countryName1 = countryName[countryName.find(',')+1:].strip()
+                        if countryName1.lower() in isoCountries: #--also map the code for matching
+                            isoCountryList.append(isoCountries[countryName1.lower()])
+                        else:
+                            countryName1 = countryName[countryName.rfind(',')+1:].strip()
+                            if countryName1.lower() in isoCountries: #--also map the code for matching
+                                isoCountryList.append(isoCountries[countryName1.lower()])
 
             for subRecord in sdnEntry.findall('nationalityList/nationality'):
                 if getValue(subRecord, 'country'):
                     attrList.append({'NATIONALITY': getValue(subRecord, 'country')})
-                    if getValue(subRecord, 'country').upper() in isoCountry: #--also map the code for matching
-                        attrList.append({'NATIONALITY_ISO_COUNTRY': isoCountry[getValue(subRecord, 'country').upper()]})
-                        countryList.append(isoCountry[getValue(subRecord, 'country').upper()])
+                    updateStat('ATTRIBUTE', 'NATIONALITY', getValue(subRecord, 'country'))
+                    if getValue(subRecord, 'country').lower() in isoCountries: #--also map the code for matching
+                        isoCountryList.append(isoCountries[getValue(subRecord, 'country').lower()])
 
             for subRecord in sdnEntry.findall('citizenshipList/citizenship'):
                 if getValue(subRecord, 'country'):
                     attrList.append({'CITIZENSHIP': getValue(subRecord, 'country')})
-                    if getValue(subRecord, 'country').upper() in isoCountry: #--also map the code for matching
-                        attrList.append({'CITIZENSHIP_ISO_COUNTRY': isoCountry[getValue(subRecord, 'country').upper()]})
-                        countryList.append(isoCountry[getValue(subRecord, 'country').upper()])
+                    updateStat('ATTRIBUTE', 'CITIZENSHIP', getValue(subRecord, 'country'))
+                    if getValue(subRecord, 'country').lower() in isoCountries: #--also map the code for matching
+                        isoCountryList.append(isoCountries[getValue(subRecord, 'country').lower()])
 
             if attrList:
                 jsonData['ATTR_LIST'] = attrList
 
             #--add any addresses
+            onlyCountryList = []
             addrList = []
             for subRecord in sdnEntry.findall('addressList/address'):
                 addrDict ={}
-                if getValue(subRecord, 'address1'):
+                if getValue(subRecord, 'address1') and getValue(subRecord, 'address1') != 'Address Unknown':
                     addrDict['ADDR_LINE1'] = getValue(subRecord, 'address1')
                 if getValue(subRecord, 'address2'):
                     addrDict['ADDR_LINE2'] = getValue(subRecord, 'address2')
@@ -237,95 +267,167 @@ def processFile(inputFile, outputFile, includeAll):
                 if getValue(subRecord, 'country'):
                     addrDict['ADDR_COUNTRY'] = getValue(subRecord, 'country')
                 if addrDict:
-                    addrList.append(addrDict)
-
+                    if len(addrDict) == 1 and list(addrDict.keys())[0] == 'ADDR_COUNTRY':
+                        onlyCountryList.append(addrDict['ADDR_COUNTRY'])
+                        updateStat('ADDRESS', 'country only')
+                    else:
+                        addrList.append(addrDict)
+                        updateStat('ADDRESS', 'UNTYPED')
+                    if 'ADDR_COUNTRY' in addrDict and addrDict['ADDR_COUNTRY'].lower() in isoCountries: #--also map the code for matching
+                        isoCountryList.append(isoCountries[addrDict['ADDR_COUNTRY'].lower()])
             if addrList:
                 jsonData['ADDR_LIST'] = addrList
+            if onlyCountryList: 
+                jsonData['Address Country'] = ','.join(onlyCountryList)
 
             #--add any ID numbers
-            otherDict = {}
+            itemNum = 0
             idList = []
             for subRecord in sdnEntry.findall('idList/id'):
                 if getValue(subRecord, 'idNumber'):
                     idData = {}
-                    
-                    #--Entities and Individuals
-                    if 'SSN' in getValue(subRecord, 'idType').upper():
-                        idData['SSN_NUMBER'] = getValue(subRecord, 'idNumber')
+                    idType = getValue(subRecord, 'idType')
+                    idNumber = getValue(subRecord, 'idNumber')
+                    idCountry = getValue(subRecord, 'idCountry')
+                    if not idCountry:
+                        idCountry = ''
 
-                    elif 'DRIVER' in getValue(subRecord, 'idType').upper():
-                        idData['DRIVERS_LICENSE_NUMBER'] = getValue(subRecord, 'idNumber')
-                        if getValue(subRecord, 'idCountry'):
-                            idData['DRIVERS_LICENSE_STATE'] = getValue(subRecord, 'idCountry')
+                    #--try to standardize the country
+                    isoCountry = ''
+                    if idCountry and idCountry.lower() in isoCountries: #--also map the code for matching
+                        isoCountry = isoCountries[idCountry.lower()]
+                        isoCountryList.append(isoCountry)
 
-                    elif 'PASSPORT' in getValue(subRecord, 'idType').upper():
-                        idData['PASSPORT_NUMBER'] = getValue(subRecord, 'idNumber')
-                        if getValue(subRecord, 'idCountry'):
-                            idData['PASSPORT_COUNTRY'] = getValue(subRecord, 'idCountry')
+                    #--check state file if not found and a drivers license
+                    if idCountry and (isoCountry in ('US', 'USA') or not isoCountry) and 'DRIVER' in idType.upper() and idCountry.lower() in isoStates:
+                        isoCountry = isoStates[idCountry.lower()]
+
+                    #--individuals stuff
+                    if 'SSN' in idType.upper():
+                        idData['SSN_NUMBER'] = idNumber
+                        updateStat('ID_TYPE', 'SSN', idNumber + ' - ' + idCountry)
+
+                    elif 'DRIVER' in idType.upper():
+                        idData['DRIVERS_LICENSE_NUMBER'] = idNumber
+                        idData['DRIVERS_LICENSE_STATE'] = isoCountry
+                        updateStat('ID_TYPE', 'DRLIC - ' + isoCountry, idNumber + ' - ' + idCountry)
+
+                    elif 'PASSPORT' in idType.upper():
+                        idData['PASSPORT_NUMBER'] = idNumber
+                        idData['PASSPORT_COUNTRY'] = isoCountry
+                        updateStat('ID_TYPE', 'PASSPORT - ' + isoCountry, idNumber + ' - ' + idCountry)
+
+                    elif idType.upper() == 'NATIONAL ID NO.':
+                        idData['NATIONAL_ID_NUMBER'] = idNumber
+                        idData['NATIONAL_ID_COUNTRY'] = isoCountry
+                        updateStat('ID_TYPE', 'NATIONAL_ID - ' + isoCountry, idNumber + ' - ' + idCountry)
+
+                    #--entities stuff
+                    elif idType.upper() == 'TAX ID NO.':
+                        idData['TAX_ID_NUMBER'] = idNumber
+                        idData['TAX_ID_COUNTRY'] = isoCountry
+                        updateStat('ID_TYPE', 'TAX_ID - ' + isoCountry, idNumber + ' - ' + idCountry)
+
+                    elif idType == 'D-U-N-S Number':
+                        idData['DUNS_NUMBER'] = idNumber
+                        updateStat('ID_TYPE', 'DUNS_NUMBER', idNumber)
                             
-                    elif g2EntityType in ('PERSON','ORGANIZATION') and getValue(subRecord, 'idCountry'): #--removes some of the garbage values (if it wasn't issued by a country its just free text or gender
-                        #--idData['NATIONAL_ID_TYPE'] = getValue(subRecord, 'idType')
-                        idData['NATIONAL_ID_NUMBER'] = getValue(subRecord, 'idNumber')
-                        if getValue(subRecord, 'idCountry'):
-                            idData['NATIONAL_ID_COUNTRY'] = getValue(subRecord, 'idCountry')
-
                     #--vessel stuff
-                    elif getValue(subRecord, 'idType') == 'Vessel Registration Identification':
-                        idData['IMO_NUMBER'] = getValue(subRecord, 'idNumber').replace('IMO ','')
-                    elif getValue(subRecord, 'idType') == 'MMSI':
-                        idData['MMSI_NUMBER_NUMBER'] = getValue(subRecord, 'idNumber').replace('IMO ','')
-                    elif getValue(subRecord, 'idType') == "Other Vessel Call Sign":
-                        idData['CALL_SIGN'] = getValue(subRecord, 'idNumber')
+                    elif idType == 'Vessel Registration Identification':
+                        idData['IMO_NUMBER'] = idNumber.replace('IMO ','')
+                        updateStat('VESSEL', 'IMO', idNumber)
+                    elif idType == 'MMSI':
+                        idData['MMSI_NUMBER_NUMBER'] = idNumber
+                        updateStat('VESSEL', 'MMSI', idNumber)
+                    elif idType == "Other Vessel Call Sign":
+                        idData['CALL_SIGN'] = idNumber
+                        updateStat('VESSEL', 'CALL_SIGN', idNumber)
 
                     #--aircraft stuff
-                    elif getValue(subRecord, 'idType') == 'Aircraft Construction Number (also called L/N or S/N or F/N)':
-                        idData['AIRCRAFT_CONSTRUCTION_NUM'] = getValue(subRecord, 'idNumber')
-                    elif getValue(subRecord, 'idType') == "Aircraft Manufacturer's Serial Number (MSN)":
-                        idData['AIRCRAFT_MFG_SERIAL_NUM'] = getValue(subRecord, 'idNumber')
-                    elif getValue(subRecord, 'idType') == "Aircraft Tail Number":
-                        idData['AIRCRAFT_TAIL_NUM'] = getValue(subRecord, 'idNumber')
+                    elif idType == 'Aircraft Construction Number (also called L/N or S/N or F/N)':
+                        idData['AIRCRAFT_CONSTRUCTION_NUM'] = idNumber
+                        updateStat('AIRCRAFT', 'AIRCRAFT_CONSTRUCTION_NUM', idNumber)
+                    elif idType == "Aircraft Manufacturer's Serial Number (MSN)":
+                        idData['AIRCRAFT_MFG_SERIAL_NUM'] = idNumber
+                        updateStat('AIRCRAFT', 'AIRCRAFT_MFG_SERIAL_NUM', idNumber)
+                    elif idType == "Aircraft Tail Number":
+                        idData['AIRCRAFT_TAIL_NUM'] = idNumber
+                        updateStat('AIRCRAFT', 'AIRCRAFT_TAIL_NUM', idNumber)
+
+                    #--other data hidden in ID section
+                    elif idType == 'Website':
+                        idData['WEBSITE_ADDRESS'] = idNumber
+                        updateStat('ATTRIBUTE', 'WEBSITE_ADDRESS', idNumber)
+                    elif idType == 'Email Address':
+                        idData['EMAIL_ADDRESS'] = idNumber
+                        updateStat('ATTRIBUTE', 'EMAIL_ADDRESS', idNumber)
+                    elif idType == 'Phone Number':
+                        idData['PHONE_NUMBER'] = idNumber
+                        updateStat('PHONE_NUMBER', 'untyped', idNumber)
+                    elif idType == 'Gender':
+                        idData['GENDER'] = idNumber
+                        updateStat('ATTRIBUTE', 'GENDER', idNumber)
 
                     #--everything else from any entity type
                     else:
-                        if getValue(subRecord, 'idType') not in otherDict:
-                            otherDict[getValue(subRecord, 'idType')] = []
-                        otherDict[getValue(subRecord, 'idType')].append(getValue(subRecord, 'idNumber'))
+                        itemNum += 1
+                        jsonData['ID%s' % itemNum] = '%s %s %s' % (idType, idNumber, idCountry)
+                        updateStat('UNKNOWN_ID', g2EntityType + ': '+ idType + ' - ' + isoCountry, idNumber + ' - ' + idCountry)
                     
                     if idData:
                         idList.append(idData)
             if idList:
                 jsonData['ID_LIST'] = idList
-            if otherDict:
-                for attr in otherDict:
-                    jsonData[attr] = ' | '.join(otherDict[attr])
-                
+
             #--still some vessel info in this structure
             if g2EntityType == 'VESSEL':
                 if getValue(sdnEntry, 'vesselInfo/callSign'):
                     jsonData['CALL_SIGN'] = getValue(sdnEntry, 'vesselInfo/callSign')
+                    updateStat('VESSEL', 'CALL_SIGN', getValue(sdnEntry, 'vesselInfo/callSign'))
                 if getValue(sdnEntry, 'vesselInfo/vesselType'):
                     jsonData['vesselType'] = getValue(sdnEntry, 'vesselInfo/vesselType')
+                    updateStat('VESSEL', 'vesselType', getValue(sdnEntry, 'vesselInfo/vesselType'))
                 if getValue(sdnEntry, 'vesselInfo/vesselFlag'):
                     jsonData['vesselFlag'] = getValue(sdnEntry, 'vesselInfo/vesselFlag')
+                    updateStat('VESSEL', 'vesselFlag', getValue(sdnEntry, 'vesselInfo/vesselFlag'))
                 if getValue(sdnEntry, 'vesselInfo/vesselOwner'):
                     jsonData['vesselOwner'] = getValue(sdnEntry, 'vesselInfo/vesselOwner')
+                    updateStat('VESSEL', 'vesselOwner', getValue(sdnEntry, 'vesselInfo/vesselOwner'))
                 if getValue(sdnEntry, 'vesselInfo/tonnage'):
                     jsonData['tonnage'] = getValue(sdnEntry, 'vesselInfo/tonnage')
+                    updateStat('VESSEL', 'tonnage', getValue(sdnEntry, 'vesselInfo/tonnage'))
                 if getValue(sdnEntry, 'vesselInfo/grossRegisteredTonnage'):
                     jsonData['grossRegisteredTonnage'] = getValue(sdnEntry, 'vesselInfo/grossRegisteredTonnage')
+                    updateStat('VESSEL', 'grossRegisteredTonnage', getValue(sdnEntry, 'vesselInfo/grossRegisteredTonnage'))
                     
+            #--add all the country codes found
+            subList = []
+            for cntryCode in set(isoCountryList):
+                subList.append({'COUNTRY_CODE': cntryCode})
+                updateStat('ATTRIBUTE','COUNTRY_CODE')
+            if subList:
+                jsonData['ISO_COUNTRY_CODES'] = subList
+
         jsonStr = json.dumps(jsonData)
         try: outputHandle.write(jsonStr + '\n')
         except IOError as err:
+            print('')
             print('ERROR: could not write to json file')
             print(err)
+            print('')
             appError = 1
             break
             
     outputHandle.close()
-
+    print('')
     print('%s records written, done!' % rowCnt)
     print('')
+
+    if statisticsFile: 
+        with open(statisticsFile, 'w') as outfile:
+            json.dump(statPack, outfile, indent=4, sort_keys = True)    
+        print('Mapping stats written to %s' % statisticsFile)
+        print('')
 
     return 0
 
@@ -333,17 +435,18 @@ def processFile(inputFile, outputFile, includeAll):
 if __name__ == "__main__":
     appPath = os.path.dirname(os.path.abspath(sys.argv[0]))
 
-    outputFile = 'ofac.json'
-
     argparser = argparse.ArgumentParser()
     argparser.add_argument('-i', '--inputFile', dest='inputFile', type=str, default=None, help='an sdn.xml file downloaded from https://www.treasury.gov/ofac/downloads.')
-    argparser.add_argument('-o', '--outputFile', dest='outputFile', type=str, default=outputFile, help='output filename. default is ofac-yyyy-mm-dd.json based on the publish date')
-    argparser.add_argument('-a', '--includeAll', dest='includeAll', action='store_true', default=False, help='convert all entity types including vessels and aircraft')
-
+    argparser.add_argument('-o', '--outputFile', dest='outputFile', type=str, help='output filename. defaults to input file name with a .json extension.')
+    argparser.add_argument('-a', '--includeAll', dest='includeAll', action='store_true', default=False, help='convert all entity types including vessels and aircraft.')
+    argparser.add_argument('-c', '--isoCountrySize', dest='isoCountrySize', type=int, default=3, help='ISO country code size. Either 2 or 3, default = 3.')
+    argparser.add_argument('-s', '--statisticsFile', dest='statisticsFile', type=str, help='optional statistics filename in json format.')
     args = argparser.parse_args()
     inputFile = args.inputFile
     outputFile = args.outputFile
     includeAll = args.includeAll
+    isoCountrySize = args.isoCountrySize
+    statisticsFile = args.statisticsFile
 
     if not (inputFile):
         print('')
@@ -351,21 +454,51 @@ if __name__ == "__main__":
         print('')
         sys.exit(1)
 
+    #--default the output file if not supplied
+    if not (outputFile):
+        outputFile = inputFile + '.json'
+    
     #--need conversion table for country codes
-    isoCountriesFile = appPath + os.path.sep + 'isoCountries.json'
-    if not os.path.exists(isoCountriesFile):
+    if isoCountrySize == 3:
+        isoCountryFile = 'isoCountries3.json'
+    elif isoCountrySize == 2:
+        isoCountryFile = 'isoCountries2.json'
+    else:
+        print('')
+        print('The ISO Country size must be 2 or 3.')
+        print('')
+        sys.exit(1)
+
+    isoCountryFile = appPath + os.path.sep + isoCountryFile
+    if not os.path.exists(isoCountryFile):
+        print('')
+        print('File %s is missing!' % (isoCountryFile))
+        print('')
+        sys.exit(1)
+    try: isoCountries = json.load(open(isoCountryFile,'r'))
+    except json.decoder.JSONDecodeError as err:
+        print('')
+        print('JSON error %s in %s' % (err, isoCountryFile))
+        print('')
+        sys.exit(1)
+
+    #--need conversion table for country codes
+    isoStatesFile = appPath + os.path.sep + 'isoStates.json'
+    if not os.path.exists(isoStatesFile):
         print('')
         print('File %s is missing!' % (isoCountriesFile))
         print('')
         sys.exit(1)
-    try: isoCountry = json.load(open(isoCountriesFile,'r'))
+    try: isoStates = json.load(open(isoStatesFile,'r'))
     except json.decoder.JSONDecodeError as err:
         print('')
-        print('JSON error %s in %s' % (err, isoCountriesFile))
+        print('JSON error %s in %s' % (err, isoStatesFile))
         print('')
         sys.exit(1)
 
+    statPack = {}
+
     result = processFile(inputFile, outputFile, includeAll)
-    
+
     sys.exit(result)
    

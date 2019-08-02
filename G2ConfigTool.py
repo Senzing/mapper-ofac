@@ -1172,6 +1172,73 @@ class G2CmdShell(cmd.Cmd):
         return jsonString
        
  
+    # -----------------------------
+    def do_addToNamehash(self,arg):
+        '\n\taddToNamehash {"feature": "<feature>", "element": "<element>"}'
+        if not argCheck('addToNamehash', arg, self.do_addToNamehash.__doc__):
+            return
+        try:
+            parmData = dictKeysUpper(json.loads(arg))
+        except (ValueError, KeyError) as e:
+            print('\nError with argument(s) or parsing JSON - %s \n' % e)
+            return
+
+        try:
+            nameHasher_efuncID = self.getRecord('CFG_EFUNC', 'EFUNC_CODE', 'NAME_HASHER')['EFUNC_ID']
+            nameHasher_efcallID = self.getRecord('CFG_EFCALL', 'EFUNC_ID', nameHasher_efuncID)['EFCALL_ID']
+        except: 
+            nameHasher_efcallID = 0
+        if not nameHasher_efcallID:
+            printWithNewLines('Name hasher function not found!', 'B')
+            return
+
+        if 'FEATURE' in parmData and len(parmData['FEATURE']) != 0:
+            parmData['FEATURE'] = parmData['FEATURE'].upper()
+            ftypeID = self.getRecord('CFG_FTYPE', 'FTYPE_CODE', parmData['FEATURE'])['FTYPE_ID']
+            if not ftypeID:
+                printWithNewLines('Invalid feature: %s' % parmData['FEATURE'], 'B')
+                return
+        else:
+            printWithNewLines('A feature value is required', 'B')
+            return
+
+        if 'ELEMENT' in parmData and len(parmData['ELEMENT']) != 0:
+            parmData['ELEMENT'] = parmData['ELEMENT'].upper()
+            felemID = self.getRecord('CFG_FELEM', 'FELEM_CODE', parmData['ELEMENT'])['FELEM_ID']
+            if not felemID:
+                printWithNewLines('Invalid element: %s' % parmData['ELEMENT'], 'B')
+                return
+            else:
+                if not self.getRecord('CFG_FBOM', ['FTYPE_ID', 'FELEM_ID'], [ftypeID, felemID]):
+                    printWithNewLines('%s is not an element of feature %s'% (parmData['ELEMENT'], parmData['FEATURE']), 'B')
+                    return
+        else:
+            printWithNewLines('An element of feature %s is required' % parmData['FEATURE'], 'B')
+            return
+            
+        nameHasher_execOrder = 0
+        for i in range(len(self.cfgData['G2_CONFIG']['CFG_EFBOM'])):
+            if self.cfgData['G2_CONFIG']['CFG_EFBOM'][i]['EFCALL_ID'] == nameHasher_efcallID and self.cfgData['G2_CONFIG']['CFG_EFBOM'][i]['EXEC_ORDER'] > nameHasher_execOrder:
+                nameHasher_execOrder = self.cfgData['G2_CONFIG']['CFG_EFBOM'][i]['EXEC_ORDER']
+            if self.cfgData['G2_CONFIG']['CFG_EFBOM'][i]['FTYPE_ID'] == ftypeID and self.cfgData['G2_CONFIG']['CFG_EFBOM'][i]['FELEM_ID'] == felemID:
+                printWithNewLines('Already added to name hash!', 'B')
+                return
+
+        #--add record
+        newRecord = {}
+        newRecord['EFCALL_ID'] = nameHasher_efcallID
+        newRecord['EXEC_ORDER'] = nameHasher_execOrder + 1
+        newRecord['FTYPE_ID'] = ftypeID
+        newRecord['FELEM_ID'] = felemID
+        newRecord['FELEM_REQ'] = 'No'
+        self.cfgData['G2_CONFIG']['CFG_EFBOM'].append(newRecord)
+        if self.doDebug:
+            showMeTheThings(newRecord, 'EFBOM build')
+
+        self.configUpdated = True
+        printWithNewLines('Successfully added!', 'B')
+
+
 # ===== attribute commands =====
 
     # -----------------------------
@@ -1261,7 +1328,6 @@ class G2CmdShell(cmd.Cmd):
                 printWithNewLines('Record not found!', 'B')
             printWithNewLines('%s rows deleted!' % deleteCnt, 'B')
     
-
     # -----------------------------
     def do_addAttribute(self,arg):
         '\n\taddAttribute {"attribute": "<attribute_name>"}' \

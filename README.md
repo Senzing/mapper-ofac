@@ -22,10 +22,14 @@ optional arguments:
                         an sdn.xml file downloaded from
                         https://www.treasury.gov/ofac/downloads.
   -o OUTPUTFILE, --outputFile OUTPUTFILE
-                        output filename. default is ofac-yyyy-mm-dd.json based
-                        on the publish date
+                        output filename. defaults to input file name with a
+                        .json extension.
+  -c ISOCOUNTRYSIZE, --isoCountrySize ISOCOUNTRYSIZE
+                        ISO country code size. Either 2 or 3, default = 3.
   -a, --includeAll      convert all entity types including vessels and
-                        aircraft
+                        aircraft.
+  -s STATISTICSFILE, --statisticsFile STATISTICSFILE
+                        optional statistics filename in json format.
 ```
 
 ## Contents
@@ -68,10 +72,10 @@ Configuration updates include:
 - addEntityType **ORGANIZATION**
 - add features and attributes for ...
     - **RECORD_TYPE** This helps keep persons and organizations from resolving together.
-    - **YEAR_OF_BIRTH** This is the year portion of the date of birth.
-    - **ISO_COUNTRY** This is the ISO country code used to improve matching of nationality, citizenship and place of birth.
-    - **OFAC_ID** This is used to help prevent watch list entries from resolving to each other.
+    - **COUNTRY_CODE** This is a 3 character country code used to improve matching of nationality, citizenship and place of birth.
     - **PLACE_OF_BIRTH** This is a feature missing from the default configuration of early version of Senzing
+    - **OFAC_ID** This is used to help prevent watch list entries from resolving to each other and so that you can search on it.
+    - **DUNS_NUMBER** This is great for matching companies.
 
 *WARNING:* the following settings are commented out as they affect performance and quality. Only use them if you understand and are OK with the effects.
 - sets **NAME** and **ADDRESS** to be used for candidates. Normally just their hashes are used to find candidates.  The effect is performance is slightly degraded.
@@ -81,16 +85,20 @@ Finally, the additional entity types and features needed to load aircraft and ve
 
 ### Running the ofac2json mapper
 
-First, download the latest sdn.xml file from https://www.treasury.gov/ofac/downloads. This is the only file needed. Place it on a directory where you will store other source data files loaded into Senzing. It would be a good practice to archive these files somewhere as well.  At the beginning of each sdn.xml file is a publish date that is good to append to the end of the archived file name as we have done when the file is converted to json.
+First, download the latest sdn.xml file from https://www.treasury.gov/ofac/downloads. This is the only file needed. It would be a good practice to rename it based on the publish date such as sdn-yyyy-mm-dd.xml and place it on a directory where you will store other source data files loaded into Senzing. 
 
 Second, run the mapper.  Typical usage:
 ```console
-python ofac2json.py -i /<path-to-file>/sdn.xml
+python ofac2json.py -i /<path-to-file>/sdn-yyyy-mm-dd.xml
 ```
-This will create an ofac-yyyy-mm-dd.json file (based on the publish date) on the same directory as the sdn.xml file provided.
+The output file defaults to the same name and location as the input file except the extension is changed to .json.
 
 - Use the -o parameter if you want a supply a different output file name or location
 - Use the -a parameter to include the aircraft and vessel OFAC records.
+- Use the -c parameter to change from 3 character to 2 character ISO country codes.
+- Use the -s parameter to log the mapping statistics to a file.
+
+*Note* The mapping satistics should be reviewed occasionally to determine if there are other values that can be mapped to new features.  Check the UNKNOWN_ID section for values that you may get from other data sources that you would like to make into their own features.  Most of these values were not mapped because there just aren't enough of them to matter and/or you are not likely to get them from any other data sources. However, DUNS_NUMBER, GENDER, and WEBSITE_ADDRESS were found by reviewing these statistics!
 
 ### Loading into Senzing
 
@@ -105,9 +113,8 @@ If you use the API directly, then you just need to perform an addRecord for each
 ### Mapping other data sources
 
 Watch lists are harder to match simply because often the only data they contain that matches your other data sources are name, partial date of birth, and citizenship or nationality.  Complete address or identifier matches are possible but more rare. For this reason, the following special attributes should be mapped from your internal data sources or search request messages ... 
-- **RECORD_TYPE**
-- **YEAR_OF_BIRTH**
-- **ISO_COUNTRY** (standardized with [isoCountries.json](isoCountries.json)) Simply find any country you can that qualifies as a nationality, citizenship or place of birth and map it.
+- **RECORD_TYPE** (valid values are PERSON or ORGANIZATION, only supply if known.)
+- **COUNTRY_CODE** (standardized with [isoCountries.json](isoCountries.json)) Simply find any country you can that qualifies as a nationality, citizenship or place of birth, find it in the isCountries file and map the iso3 value as COUNTRY_CODE. 
 
 ### Optional ini file parameter
 
