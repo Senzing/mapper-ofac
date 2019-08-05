@@ -437,9 +437,9 @@ if __name__ == "__main__":
 
     argparser = argparse.ArgumentParser()
     argparser.add_argument('-i', '--inputFile', dest='inputFile', type=str, default=None, help='an sdn.xml file downloaded from https://www.treasury.gov/ofac/downloads.')
-    argparser.add_argument('-o', '--outputFile', dest='outputFile', type=str, help='output filename. defaults to input file name with a .json extension.')
+    argparser.add_argument('-o', '--outputFile', dest='outputFile', type=str, help='output filename, defaults to input file name with a .json extension.')
     argparser.add_argument('-a', '--includeAll', dest='includeAll', action='store_true', default=False, help='convert all entity types including vessels and aircraft.')
-    argparser.add_argument('-c', '--isoCountrySize', dest='isoCountrySize', type=int, default=3, help='ISO country code size. Either 2 or 3, default = 3.')
+    argparser.add_argument('-c', '--isoCountrySize', dest='isoCountrySize', type=int, default=3, help='ISO country code size. Either 2 or 3, default=3.')
     argparser.add_argument('-s', '--statisticsFile', dest='statisticsFile', type=str, help='optional statistics filename in json format.')
     args = argparser.parse_args()
     inputFile = args.inputFile
