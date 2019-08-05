@@ -7,14 +7,14 @@ sdn.xml file available from https://www.treasury.gov/ofac/downloads to a json fi
 senzing. 
 
 Loading watch lists requires some special features and configurations of Senzing. These are contained in the 
-[ofac-config-updates.json](ofac-config-updates.json) file and are applied with the [G2ConfigTool.py](G2ConfigTool.py) contained in this project.
+[ofacConfigUpdates.json](ofacConfigUpdates.json) file and are applied with the [G2ConfigTool.py](G2ConfigTool.py) contained in this project.
 
 **IMPORTANT NOTE:** For good watch list matching, your other data sources should also map as many these same features as are available!
 
 Usage:
 ```console
-$ python ofac2json.py --help
 usage: ofac2json.py [-h] [-i INPUTFILE] [-o OUTPUTFILE] [-a]
+                    [-c ISOCOUNTRYSIZE] [-s STATISTICSFILE]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -22,12 +22,12 @@ optional arguments:
                         an sdn.xml file downloaded from
                         https://www.treasury.gov/ofac/downloads.
   -o OUTPUTFILE, --outputFile OUTPUTFILE
-                        output filename. defaults to input file name with a
+                        output filename, defaults to input file name with a
                         .json extension.
-  -c ISOCOUNTRYSIZE, --isoCountrySize ISOCOUNTRYSIZE
-                        ISO country code size. Either 2 or 3, default = 3.
   -a, --includeAll      convert all entity types including vessels and
                         aircraft.
+  -c ISOCOUNTRYSIZE, --isoCountrySize ISOCOUNTRYSIZE
+                        ISO country code size. Either 2 or 3, default=3.
   -s STATISTICSFILE, --statisticsFile STATISTICSFILE
                         optional statistics filename in json format.
 ```
@@ -49,10 +49,12 @@ optional arguments:
 
 Place the the following files on a directory of your choice ...
 - [ofac2json.py](ofac2json.py) 
-- [isoCountries.json](isoCountries.json)
-- [ofac-config-updates.json](ofac-config-updates.json)
+- [ofacConfigUpdates.json](ofacConfigUpdates.json)
+- [isoCountries2.json](isoCountries2.json)
+- [isoCountries3.json](isoCountries3.json)
+- [isoStates.json](isoStates.json)
 
-*Note:* The isoCountries.json file is extensible.   It currently contains a mapping from a raw country name into a 2 digit iso country code. Additional entries can be added as desired.
+*Note:* The iso\*.json file are extensible. They currently only contain the most common country and state name variations. Additional entries can be added as desired. This conversion program extracts and standardizes country codes from the fields: nationality, citizenship, place of birth, addresses, passports and other national identifiers and places them into a standardized country code attribute very useful for matching. *For best results, you will want to use these files to help standardize country and state codes from these fields in your other data sources as well.*
 
 ### Configuring Senzing
 
@@ -62,7 +64,7 @@ Update the G2ConfigTool.py program file on the /opt/senzing/g2/python directory 
 
 Then from the /opt/senzing/g2/python directory ...
 ```console
-python G2ConfigTool.py <path-to-file>/ofac-config-updates.json
+python G2ConfigTool.py <path-to-file>/ofacConfigUpdates.json
 ```
 This will step you through the process of adding the data sources, entity types, features, attributes and other settings needed to load OFAC data into Senzing. After each command you will see a status message saying "success" or "already exists".  For instance, if you run the script twice, the second time through they will all say "already exists" which is OK.
 
@@ -75,7 +77,7 @@ Configuration updates include:
     - **COUNTRY_CODE** This is a 3 character country code used to improve matching of nationality, citizenship and place of birth.
     - **PLACE_OF_BIRTH** This is a feature missing from the default configuration of early version of Senzing
     - **OFAC_ID** This is used to help prevent watch list entries from resolving to each other and so that you can search on it.
-    - **DUNS_NUMBER** This is great for matching companies.
+    - **DUNS_NUMBER** This is great for matching companies if your own data sources contain it.
 
 *WARNING:* the following settings are commented out as they affect performance and quality. Only use them if you understand and are OK with the effects.
 - sets **NAME** and **ADDRESS** to be used for candidates. Normally just their hashes are used to find candidates.  The effect is performance is slightly degraded.
@@ -85,7 +87,7 @@ Finally, the additional entity types and features needed to load aircraft and ve
 
 ### Running the ofac2json mapper
 
-First, download the latest sdn.xml file from https://www.treasury.gov/ofac/downloads. This is the only file needed. It would be a good practice to rename it based on the publish date such as sdn-yyyy-mm-dd.xml and place it on a directory where you will store other source data files loaded into Senzing. 
+First, download the latest sdn.xml file from https://www.treasury.gov/ofac/downloads. This is the only file needed. It is a good practice to rename it based on the publish date such as sdn-yyyy-mm-dd.xml and place it on a directory where you will store other source data files loaded into Senzing. 
 
 Second, run the mapper.  Typical usage:
 ```console
@@ -113,8 +115,20 @@ If you use the API directly, then you just need to perform an addRecord for each
 ### Mapping other data sources
 
 Watch lists are harder to match simply because often the only data they contain that matches your other data sources are name, partial date of birth, and citizenship or nationality.  Complete address or identifier matches are possible but more rare. For this reason, the following special attributes should be mapped from your internal data sources or search request messages ... 
-- **RECORD_TYPE** (valid values are PERSON or ORGANIZATION, only supply if known.)
-- **COUNTRY_CODE** (standardized with [isoCountries.json](isoCountries.json)) Simply find any country you can that qualifies as a nationality, citizenship or place of birth, find it in the isCountries file and map the iso3 value as COUNTRY_CODE. 
+- **RECORD_TYPE:** valid values are PERSON or ORGANIZATION, only supply if known.
+- **COUNTRY_CODE:** standardized with iso\*.json files included in this package. Simply find any country you can and look it up in either the isoCountries2.json or isoCountries3.json, whichever one you decide to standardize on, and map its iso code to an attribute called country_code. You can prefix with a source word like so ...
+```console
+{
+  "NATIONALITY_COUNTRY_CODE": "GER",
+  "CITIZENSHIP_COUNTRY_CODE": "USA",
+  "PLACE-OF-BIRTH_COUNTRY_CODE": "USA",     <--note the use of dashes not underscores here!
+  "ADDRESS_COUNTRY_CODE": "CAN"},
+  "PASSPORT_COUNTRY_CODE": "GER"}
+}
+```
+*note: if your source word is an expression, use dashes not underscores so as not to confuse the engine*
+
+If your own data has other identifiers beyond the ssn, passport, drivers license, national_id, etc; look for them in the mapping statistics file UNKNOWN_ID section.  This is where hidden values like DUNS_NUMBER. GENDER and WEBSITE_ADDRESS were found and added to the standard mapping.
 
 ### Optional ini file parameter
 
