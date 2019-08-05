@@ -23,8 +23,8 @@ addToNamehash {"feature": "COUNTRY", "element": "CODE"}
 
 #--best practice for watch list screening - make name and address used for candidates
 #--caveat: minor performance effect and improvement
-setFeature {"feature": "NAME", "candidates": "Yes"}
-setFeature {"feature": "ADDRESS", "candidates": "Yes"}
+#setFeature {"feature": "NAME", "candidates": "Yes"}
+#setFeature {"feature": "ADDRESS", "candidates": "Yes"}
 
 #--best practice for watch list screening - turn off distinct names 
 #--caveat: major performance effect and improvement

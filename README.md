@@ -66,7 +66,7 @@ Then from the /opt/senzing/g2/python directory ...
 ```console
 python G2ConfigTool.py <path-to-file>/ofacConfigUpdates.json
 ```
-This will step you through the process of adding the data sources, entity types, features, attributes and other settings needed to load OFAC data into Senzing. After each command you will see a status message saying "success" or "already exists".  For instance, if you run the script twice, the second time through they will all say "already exists" which is OK.
+This will step you through the process of adding the data sources, entity types, features, attributes and other settings needed to load this watch list data into Senzing. After each command you will see a status message saying "success" or "already exists".  For instance, if you run the script twice, the second time through they will all say "already exists" which is OK.
 
 Configuration updates include:
 - addDataSource **OFAC**
