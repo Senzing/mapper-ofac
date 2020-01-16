@@ -5,7 +5,7 @@
 The [ofac2json.py](ofac2json.py) python script converts the Office of Foreign Asset Control (OFAC)
 sdn.xml file available from
 [https://www.treasury.gov/ofac/downloads](https://www.treasury.gov/ofac/downloads)
-to a json file ready to load into senzing.
+to a json file ready to load into Senzing.
 
 Loading watch lists requires some special features and configurations of Senzing. These are contained in the
 [ofacConfigUpdates.json](ofacConfigUpdates.json) file and are applied with the [G2ConfigTool.py](G2ConfigTool.py) contained in this project.
