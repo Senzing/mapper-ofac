@@ -2,24 +2,17 @@ addDataSource OFAC
 addEntityType PERSON 
 addEntityType ORGANIZATION
 
-addFeature  {"feature": "RECORD_TYPE", "class": "BIO_FEATURE", "behavior": "FVME", "anonymize": "No", "candidates": "No", "standardize": "", "expression": "", "comparison": "EXACT_COMP", "elementList": [{"element": "TYPE", "expressed": "No", "compared": "Yes"}]}
-addAttribute {"attribute": "RECORD_TYPE", "class": "ATTRIBUTE", "feature": "RECORD_TYPE", "element": "TYPE", "required": "Yes", "default": "", "advanced": "No", "internal": "No"}
-
-addFeature {"feature": "PLACE_OF_BIRTH", "behavior": "FVM", "comparison": "STR_COMP", "elementList": [{"compared": "Yes", "element": "PLACE"}]}
-addAttribute {"attribute": "PLACE_OF_BIRTH", "class": "ATTRIBUTE", "feature": "PLACE_OF_BIRTH", "element": "PLACE", "required": "Yes"}
-
-addFeature {"feature": "COUNTRY", "class": "OTHER", "behavior": "FVM", "anonymize": "No", "candidates": "No", "standardize": "", "expression": "", "comparison": "EXACT_COMP", "elementList": [{"element": "CODE", "expressed": "No", "compared": "Yes"}]}
-addAttribute {"attribute": "COUNTRY_CODE", "class": "ATTRIBUTE", "feature": "COUNTRY", "element": "CODE", "required": "Yes", "default": "", "advanced": "Yes", "internal": "Yes"}
-
 addFeature  {"feature": "OFAC_ID", "class": "ISSUED_ID", "behavior": "F1E", "anonymize": "No", "candidates": "Yes", "standardize": "", "expression": "", "comparison": "EXACT_COMP", "elementList": [{"element": "ID_NUM", "expressed": "No", "compared": "Yes"}]}
 addAttribute {"attribute": "OFAC_ID", "class": "IDENTIFIER", "feature": "OFAC_ID", "element": "ID_NUM", "required": "Yes", "default": "", "advanced": "No", "internal": "No"}
 
-addFeature  {"feature": "DUNS_NUMBER", "class": "ISSUED_ID", "behavior": "F1E", "anonymize": "No", "candidates": "Yes", "standardize": "", "expression": "", "comparison": "EXACT_COMP", "elementList": [{"element": "ID_NUM", "expressed": "No", "compared": "Yes"}]}
-addAttribute {"attribute": "DUNS_NUMBER", "class": "IDENTIFIER", "feature": "DUNS_NUMBER", "element": "ID_NUM", "required": "Yes", "default": "", "advanced": "No", "internal": "No"}
+deleteFeature LEI_NUMBER
+addFeature {"id": "80", "feature": "LEI_NUMBER", "class": "ISSUED_ID", "behavior": "F1ES", "anonymize": "No", "candidates": "Yes", "standardize": "PARSE_ID", "expression": "EXPRESS_ID", "comparison": "ID_COMP", "elementList": [{"element": "ID_NUM", "expressed": "No", "compared": "No"}, {"element": "COUNTRY", "expressed": "No", "compared": "Yes"}, {"element": "ID_NUM_STD", "expressed": "Yes", "compared": "Yes"}, {"element": "COUNTRY_CODE", "expressed": "No", "compared": "No"}]}
+addAttribute {"id": "2521", "attribute": "LEI_NUMBER", "class": "IDENTIFIER", "feature": "LEI_NUMBER", "element": "ID_NUM", "required": "Yes", "default": "", "advanced": "No", "internal": "No"}
+addAttribute {"id": "2522", "attribute": "LEI_COUNTRY", "class": "IDENTIFIER", "feature": "LEI_NUMBER", "element": "COUNTRY", "required": "Yes", "default": "", "advanced": "No", "internal": "No"}
 
-#--additional candidate builders for name hashes
-addToNamehash {"feature": "DOB", "element": "DATE_YEAR"}
-addToNamehash {"feature": "COUNTRY", "element": "CODE"}
+#--best practice for watch list screening - adds additional name expressions based on country pulled from address, nationality, passport, etc
+#--caveat: minor performance effect, but good improvement as about half the address in this watch list only have country
+#--addExpressionCall {"id": 33, "element": "COUNTRY_CODE", "execOrder": 100, "function": "FEAT_BUILDER", "is_virtual": "No", "expressionFeature": "COUNTRY_OF_ASSOCIATION", "elementList": [{"featureLink": "parent", "element": "COUNTRY", "required": "No"}, {"featureLink": "parent", "element": "COUNTRY_CODE", "required": "No"}]}
 
 #--best practice for watch list screening - make name and address used for candidates
 #--caveat: minor performance effect and improvement
@@ -32,23 +25,22 @@ addToNamehash {"feature": "COUNTRY", "element": "CODE"}
 
 #--un-comment the below if loading aircraft and vessels
 
-#addEntityType VESSEL
-#addEntityType AIRCRAFT
+addEntityType VESSEL
+addEntityType AIRCRAFT
 
-#addFeature {"feature": "IMO_NUMBER", "behavior": "F1", "comparison": "EXACT_COMP", "elementList": [{"compared": "Yes", "element": "ID_NUM"}]}
+#addFeature {"feature": "IMO_NUMBER", "behavior": "F1E", "comparison": "EXACT_COMP", "elementList": [{"compared": "Yes", "element": "ID_NUM"}]}
 #addAttribute {"attribute": "IMO_NUMBER", "class": "ATTRIBUTE", "feature": "IMO_NUMBER", "element": "ID_NUM", "required": "Yes"}
-#addFeature {"feature": "MMSI_NUMBER", "behavior": "F1", "comparison": "EXACT_COMP", "elementList": [{"compared": "Yes", "element": "ID_NUM"}]}
+#addFeature {"feature": "MMSI_NUMBER", "behavior": "F1E", "comparison": "EXACT_COMP", "elementList": [{"compared": "Yes", "element": "ID_NUM"}]}
 #addAttribute {"attribute": "MMSI_NUMBER", "class": "ATTRIBUTE", "feature": "MMSI_NUMBER", "element": "ID_NUM", "required": "Yes"}
-#addFeature {"feature": "CALL_SIGN", "behavior": "F1", "comparison": "EXACT_COMP", "elementList": [{"compared": "Yes", "element": "ID_NUM"}]}
-#addAttribute {"attribute": "CALL_SIGN", "class": "ATTRIBUTE", "feature": "CALL_SIGN", "element": "ID_NUM", "required": "Yes"}
+#addFeature {"feature": "CALL_SIGN", "behavior": "F1", "comparison": "EXACT_COMP", "elementList": [{"compared": "Yes", "element": "CALL_SIGN"}]}
+#addAttribute {"attribute": "CALL_SIGN", "class": "ATTRIBUTE", "feature": "CALL_SIGN", "element": "CALL_SIGN", "required": "Yes"}
 
-#addFeature {"feature": "AIRCRAFT_CONSTRUCTION_NUM", "behavior": "F1", "comparison": "EXACT_COMP", "elementList": [{"compared": "Yes", "element": "ID_NUM"}]}
+#addFeature {"feature": "AIRCRAFT_CONSTRUCTION_NUM", "behavior": "F1E", "comparison": "EXACT_COMP", "elementList": [{"compared": "Yes", "element": "ID_NUM"}]}
 #addAttribute {"attribute": "AIRCRAFT_CONSTRUCTION_NUM", "class": "ATTRIBUTE", "feature": "AIRCRAFT_CONSTRUCTION_NUM", "element": "ID_NUM", "required": "Yes"}
-#addFeature {"feature": "AIRCRAFT_MFG_SERIAL_NUM", "behavior": "F1", "comparison": "EXACT_COMP", "elementList": [{"compared": "Yes", "element": "ID_NUM"}]}
+#addFeature {"feature": "AIRCRAFT_MFG_SERIAL_NUM", "behavior": "F1E", "comparison": "EXACT_COMP", "elementList": [{"compared": "Yes", "element": "ID_NUM"}]}
 #addAttribute {"attribute": "AIRCRAFT_MFG_SERIAL_NUM", "class": "ATTRIBUTE", "feature": "AIRCRAFT_MFG_SERIAL_NUM", "element": "ID_NUM", "required": "Yes"}
 #addFeature {"feature": "AIRCRAFT_TAIL_NUM", "behavior": "F1", "comparison": "EXACT_COMP", "elementList": [{"compared": "Yes", "element": "ID_NUM"}]}
 #addAttribute {"attribute": "AIRCRAFT_TAIL_NUM", "class": "ATTRIBUTE", "feature": "AIRCRAFT_TAIL_NUM", "element": "ID_NUM", "required": "Yes"}
 
 save
 
-updateDatabase
