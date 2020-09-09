@@ -3,7 +3,6 @@
 import os
 import sys
 import argparse
-import urllib.request as urllib
 import xml.etree.ElementTree as etree
 from datetime import datetime
 import json
@@ -92,7 +91,7 @@ def processFile(inputFile, outputFile, includeAll):
 
     xmlDoc = f.read()
     f.close()
-    if type(xmlDoc) != str: #--urllib returns bytes for python3
+    if type(xmlDoc) != str:
         xmlDoc = xmlDoc.decode('utf-8')
     
     #--name spaces not needed and can mess up etree if not accessible
@@ -156,10 +155,10 @@ def processFile(inputFile, outputFile, includeAll):
             jsonData['PUBLISH_DATE'] = publishDate
             if getValue(sdnEntry, 'title'):
                 jsonData['SDN_TITLE'] = getValue(sdnEntry, 'title')
-                updateStat('USEFUL_DATA', 'SDN_TITLE')
+                updateStat('PAYLOAD_DATA', 'SDN_TITLE')
             if getValue(sdnEntry, 'remarks'):
                 jsonData['SDN_REMARKS'] = getValue(sdnEntry, 'remarks')
-                updateStat('USEFUL_DATA', 'SDN_REMARKS')
+                updateStat('PAYLOAD_DATA', 'SDN_REMARKS')
                 
             #--add the SDN programs (usually only one)
             programList = None
@@ -171,7 +170,7 @@ def processFile(inputFile, outputFile, includeAll):
                         programList = programList + ', ' + getValue(programRecord, 'program')
             if programList:
                 jsonData['SDN_PROGRAM'] = programList
-                updateStat('USEFUL_DATA', 'SDN_PROGRAM')
+                updateStat('PAYLOAD_DATA', 'SDN_PROGRAM')
 
             #--get the names 
             nameList = []
@@ -212,7 +211,7 @@ def processFile(inputFile, outputFile, includeAll):
                 if getValue(subRecord, 'dateOfBirth'):
                     if formatDate(getValue(subRecord, 'dateOfBirth')):
                         attrList.append({'DATE_OF_BIRTH': formatDate(getValue(subRecord, 'dateOfBirth'))})
-                        updateStat('ATTRIBUTE', 'DATE_OF_BIRTH')
+                        updateStat('DATE_OF_BIRTH', len(getValue(subRecord, 'dateOfBirth')), getValue(subRecord, 'dateOfBirth'))
 
             for subRecord in sdnEntry.findall('placeOfBirthList/placeOfBirthItem'):
                 if getValue(subRecord, 'placeOfBirth'):
@@ -248,7 +247,6 @@ def processFile(inputFile, outputFile, includeAll):
                 jsonData['ATTR_LIST'] = attrList
 
             #--add any addresses
-            onlyCountryList = []
             addrList = []
             for subRecord in sdnEntry.findall('addressList/address'):
                 addrDict ={}
@@ -267,18 +265,19 @@ def processFile(inputFile, outputFile, includeAll):
                 if getValue(subRecord, 'country'):
                     addrDict['ADDR_COUNTRY'] = getValue(subRecord, 'country')
                 if addrDict:
+                    addrList.append(addrDict)
                     if len(addrDict) == 1 and list(addrDict.keys())[0] == 'ADDR_COUNTRY':
-                        onlyCountryList.append(addrDict['ADDR_COUNTRY'])
                         updateStat('ADDRESS', 'country only')
                     else:
-                        addrList.append(addrDict)
                         updateStat('ADDRESS', 'UNTYPED')
                     if 'ADDR_COUNTRY' in addrDict and addrDict['ADDR_COUNTRY'].lower() in isoCountries: #--also map the code for matching
                         isoCountryList.append(isoCountries[addrDict['ADDR_COUNTRY'].lower()])
             if addrList:
                 jsonData['ADDR_LIST'] = addrList
-            if onlyCountryList: 
-                jsonData['Address Country'] = ','.join(onlyCountryList)
+
+            #nationalIdTypes = 
+            #taxidTypes = 
+            #leiNumberTypes = 
 
             #--add any ID numbers
             itemNum = 0
@@ -302,80 +301,110 @@ def processFile(inputFile, outputFile, includeAll):
                     if idCountry and (isoCountry in ('US', 'USA') or not isoCountry) and 'DRIVER' in idType.upper() and idCountry.lower() in isoStates:
                         isoCountry = isoStates[idCountry.lower()]
 
-                    #--individuals stuff
-                    if 'SSN' in idType.upper():
+                    #--key word assignments
+                    idTypeUpper = idType.upper()
+                    if 'SSN' in idTypeUpper:
+                        g2idType = 'SSN_NUMBER'
                         idData['SSN_NUMBER'] = idNumber
-                        updateStat('ID_TYPE', 'SSN', idNumber + ' - ' + idCountry)
 
-                    elif 'DRIVER' in idType.upper():
+                    elif 'DRIVER' in idTypeUpper:
+                        g2idType = 'DRIVERS_LICENSE_NUMBER'
                         idData['DRIVERS_LICENSE_NUMBER'] = idNumber
                         idData['DRIVERS_LICENSE_STATE'] = isoCountry
-                        updateStat('ID_TYPE', 'DRLIC - ' + isoCountry, idNumber + ' - ' + idCountry)
 
-                    elif 'PASSPORT' in idType.upper():
+                    elif 'PASSPORT' in idTypeUpper:
+                        g2idType = 'PASSPORT_NUMBER'
                         idData['PASSPORT_NUMBER'] = idNumber
                         idData['PASSPORT_COUNTRY'] = isoCountry
-                        updateStat('ID_TYPE', 'PASSPORT - ' + isoCountry, idNumber + ' - ' + idCountry)
 
-                    elif idType.upper() == 'NATIONAL ID NO.':
+                    elif any(idTypeUpper.startswith(expression) for expression in ['NATIONAL ID', 'CEDULA', 'IDENTIFICATION NUMBER', 'NATIONAL FOREIGN ID NUMBER', 'D.N.I.', 'KENYAN ID NO.']) or 'PERSONAL ID' in idTypeUpper: 
+                        g2idType = 'NATIONAL_ID_NUMBER'
                         idData['NATIONAL_ID_NUMBER'] = idNumber
                         idData['NATIONAL_ID_COUNTRY'] = isoCountry
-                        updateStat('ID_TYPE', 'NATIONAL_ID - ' + isoCountry, idNumber + ' - ' + idCountry)
 
                     #--entities stuff
-                    elif idType.upper() == 'TAX ID NO.':
+                    elif any(idTypeUpper.startswith(expression) for expression in ['TAX ID NO.', 'NIT', 'RUC', 'RIF', 'RFC', 'R.F.C']) or any(expression in idTypeUpper for expression in ['FEIN', ' TAX ']): 
+                        g2idType = 'TAX_ID_NUMBER'
                         idData['TAX_ID_NUMBER'] = idNumber
                         idData['TAX_ID_COUNTRY'] = isoCountry
-                        updateStat('ID_TYPE', 'TAX_ID - ' + isoCountry, idNumber + ' - ' + idCountry)
 
-                    elif idType == 'D-U-N-S Number':
+                    elif any(idTypeUpper.startswith(expression) for expression in ['LEGAL ENTITY NUMBER', 'COMMERCIAL REGISTRY NUMBER', 'BUSINESS REGISTRATION', 'COMPANY NUMBER', 'BUSINESS NUMBER', 'PUBLIC REGISTRATION NUMBER', 'REGISTRATION NUMBER', 'REGISTRATION ID', 'TRADE LICENSE']):
+                        g2idType = 'LEI_NUMBER'
+                        idData['LEI_NUMBER'] = idNumber
+                        idData['LEI_COUNTRY'] = isoCountry
+
+                    elif idTypeUpper == 'D-U-N-S NUMBER':
+                        g2idType = 'DUNS_NUMBER'
                         idData['DUNS_NUMBER'] = idNumber
-                        updateStat('ID_TYPE', 'DUNS_NUMBER', idNumber)
+
+                    elif idTypeUpper == 'MSB REGISTRATION NUMBER':
+                        g2idType = 'MSB_LICENSE_NUMBER'
+                        idData['MSB_LICENSE_NUMBER'] = idNumber
                             
                     #--vessel stuff
-                    elif idType == 'Vessel Registration Identification':
+                    elif idTypeUpper == 'VESSEL REGISTRATION IDENTIFICATION':
+                        g2idType = 'IMO_NUMBER'
                         idData['IMO_NUMBER'] = idNumber.replace('IMO ','')
-                        updateStat('VESSEL', 'IMO', idNumber)
-                    elif idType == 'MMSI':
+                    elif idTypeUpper == 'MMSI':
+                        g2idType = 'MMSI_NUMBER_NUMBER'
                         idData['MMSI_NUMBER_NUMBER'] = idNumber
-                        updateStat('VESSEL', 'MMSI', idNumber)
-                    elif idType == "Other Vessel Call Sign":
+                    elif idTypeUpper == 'OTHER VESSEL CALL SIGN':
+                        g2idType = 'CALL_SIGN'
                         idData['CALL_SIGN'] = idNumber
-                        updateStat('VESSEL', 'CALL_SIGN', idNumber)
 
                     #--aircraft stuff
-                    elif idType == 'Aircraft Construction Number (also called L/N or S/N or F/N)':
+                    elif idTypeUpper.startswith('AIRCRAFT CONSTRUCTION NUMBER'):
+                        g2idType = 'AIRCRAFT_CONSTRUCTION_NUM'
                         idData['AIRCRAFT_CONSTRUCTION_NUM'] = idNumber
-                        updateStat('AIRCRAFT', 'AIRCRAFT_CONSTRUCTION_NUM', idNumber)
-                    elif idType == "Aircraft Manufacturer's Serial Number (MSN)":
+                    elif idTypeUpper.startswith("AIRCRAFT MANUFACTURER'S SERIAL NUMBER"):
+                        g2idType = 'AIRCRAFT_MFG_SERIAL_NUM'
                         idData['AIRCRAFT_MFG_SERIAL_NUM'] = idNumber
-                        updateStat('AIRCRAFT', 'AIRCRAFT_MFG_SERIAL_NUM', idNumber)
-                    elif idType == "Aircraft Tail Number":
+                    elif any(idTypeUpper.startswith(expression) for expression in ['AIRCRAFT TAIL NUMBER', 'PREVIOUS AIRCRAFT TAIL NUMBER']):
+                        g2idType = 'AIRCRAFT_TAIL_NUM'
                         idData['AIRCRAFT_TAIL_NUM'] = idNumber
-                        updateStat('AIRCRAFT', 'AIRCRAFT_TAIL_NUM', idNumber)
+                    elif idTypeUpper.startswith('AIRCRAFT MODEL'):
+                        g2idType = 'AIRCRAFT_TAIL_NUM'
+                        #--not an ID, called out here to prevent it becoming an other_id
+                    elif idTypeUpper.startswith('AIRCRAFT MANUFACTURE DATE'):
+                        g2idType = 'REGISTRATION_DATE'
+                        #--note: this is not an id! ()
+
 
                     #--other data hidden in ID section
-                    elif idType == 'Website':
+                    elif idTypeUpper == 'WEBSITE':
+                        g2idType = 'WEBSITE_ADDRESS'
                         idData['WEBSITE_ADDRESS'] = idNumber
-                        updateStat('ATTRIBUTE', 'WEBSITE_ADDRESS', idNumber)
-                    elif idType == 'Email Address':
+                    elif idTypeUpper == 'EMAIL ADDRESS':
+                        g2idType = 'EMAIL_ADDRESS'
                         idData['EMAIL_ADDRESS'] = idNumber
-                        updateStat('ATTRIBUTE', 'EMAIL_ADDRESS', idNumber)
-                    elif idType == 'Phone Number':
+                    elif idTypeUpper == 'PHONE NUMBER':
+                        g2idType = 'PHONE_NUMBER'
                         idData['PHONE_NUMBER'] = idNumber
-                        updateStat('PHONE_NUMBER', 'untyped', idNumber)
-                    elif idType == 'Gender':
+                    elif idTypeUpper == 'GENDER':
+                        g2idType = 'GENDER'
                         idData['GENDER'] = idNumber
-                        updateStat('ATTRIBUTE', 'GENDER', idNumber)
 
                     #--everything else from any entity type
                     else:
-                        itemNum += 1
-                        jsonData['ID%s' % itemNum] = '%s %s %s' % (idType, idNumber, idCountry)
-                        updateStat('UNKNOWN_ID', g2EntityType + ': '+ idType + ' - ' + isoCountry, idNumber + ' - ' + idCountry)
-                    
+
+                        #--its an id number if meets the following criteria
+                        if len(idNumber) >= 5 and len(idNumber) <= 20 and any(char.isdigit() for char in idNumber):
+                            g2idType = 'OTHER_ID_NUMBER'
+                            idData['OTHER_ID_TYPE'] = idType
+                            idData['OTHER_ID_NUMBER'] = idNumber
+                            idData['OTHER_ID_COUNTRY'] = isoCountry
+
+                        #--some value that probabaly not an ID (does not assign idData!)
+                        else:
+                            itemNum += 1
+                            jsonData['ID%s' % itemNum] = '%s %s %s' % (idType, idNumber, idCountry)
+                            g2idType = 'UNKNOWN_ID'
+
+                    updateStat(g2EntityType, g2idType + ': ' + idType + ' (' + isoCountry + ')', idNumber + '  (' + idCountry + ')')
                     if idData:
                         idList.append(idData)
+
+
             if idList:
                 jsonData['ID_LIST'] = idList
 
@@ -400,13 +429,15 @@ def processFile(inputFile, outputFile, includeAll):
                     jsonData['grossRegisteredTonnage'] = getValue(sdnEntry, 'vesselInfo/grossRegisteredTonnage')
                     updateStat('VESSEL', 'grossRegisteredTonnage', getValue(sdnEntry, 'vesselInfo/grossRegisteredTonnage'))
                     
-            #--add all the country codes found
-            subList = []
-            for cntryCode in set(isoCountryList):
-                subList.append({'COUNTRY_CODE': cntryCode})
-                updateStat('ATTRIBUTE','COUNTRY_CODE')
-            if subList:
-                jsonData['ISO_COUNTRY_CODES'] = subList
+            #--as of 2.0 country of association can be cconfigured to be computed automatically for all data sources!
+            if False: 
+                #--add all the country codes found 
+                subList = []
+                for cntryCode in set(isoCountryList):
+                    subList.append({'COUNTRY_CODE': cntryCode})
+                    updateStat('ATTRIBUTE','COUNTRY_OF_ASSOCIATION')
+                if subList:
+                    jsonData['ISO_COUNTRY_CODES'] = subList
 
         jsonStr = json.dumps(jsonData)
         try: outputHandle.write(jsonStr + '\n')
@@ -439,13 +470,11 @@ if __name__ == "__main__":
     argparser.add_argument('-i', '--inputFile', dest='inputFile', type=str, default=None, help='an sdn.xml file downloaded from https://www.treasury.gov/ofac/downloads.')
     argparser.add_argument('-o', '--outputFile', dest='outputFile', type=str, help='output filename, defaults to input file name with a .json extension.')
     argparser.add_argument('-a', '--includeAll', dest='includeAll', action='store_true', default=False, help='convert all entity types including vessels and aircraft.')
-    argparser.add_argument('-c', '--isoCountrySize', dest='isoCountrySize', type=int, default=3, help='ISO country code size. Either 2 or 3, default=3.')
     argparser.add_argument('-s', '--statisticsFile', dest='statisticsFile', type=str, help='optional statistics filename in json format.')
     args = argparser.parse_args()
     inputFile = args.inputFile
     outputFile = args.outputFile
     includeAll = args.includeAll
-    isoCountrySize = args.isoCountrySize
     statisticsFile = args.statisticsFile
 
     if not (inputFile):
@@ -458,18 +487,7 @@ if __name__ == "__main__":
     if not (outputFile):
         outputFile = inputFile + '.json'
     
-    #--need conversion table for country codes
-    if isoCountrySize == 3:
-        isoCountryFile = 'isoCountries3.json'
-    elif isoCountrySize == 2:
-        isoCountryFile = 'isoCountries2.json'
-    else:
-        print('')
-        print('The ISO Country size must be 2 or 3.')
-        print('')
-        sys.exit(1)
-
-    isoCountryFile = appPath + os.path.sep + isoCountryFile
+    isoCountryFile = appPath + os.path.sep + 'iso_countries.json'
     if not os.path.exists(isoCountryFile):
         print('')
         print('File %s is missing!' % (isoCountryFile))
@@ -483,7 +501,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     #--need conversion table for country codes
-    isoStatesFile = appPath + os.path.sep + 'isoStates.json'
+    isoStatesFile = appPath + os.path.sep + 'iso_states.json'
     if not os.path.exists(isoStatesFile):
         print('')
         print('File %s is missing!' % (isoCountriesFile))
