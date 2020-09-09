@@ -2,19 +2,19 @@
 
 ## Overview
 
-The [ofac2json.py](ofac2json.py) python script converts the Office of Foreign Asset Control (OFAC)
+The [ofac_mapper.py](ofac_mapper.py) python script converts the Office of Foreign Asset Control (OFAC)
 sdn.xml file available from
 [https://www.treasury.gov/ofac/downloads](https://www.treasury.gov/ofac/downloads)
 to a json file ready to load into Senzing.
 
 Loading watch lists requires some special features and configurations of Senzing. These are contained in the
-[ofacConfigUpdates.json](ofacConfigUpdates.json) file.
+[ofac_config_updates.g2c](ofac_config_updates.g2c) file.
 
 Usage:
 
 ```console
-usage: ofac2json.py [-h] [-i INPUTFILE] [-o OUTPUTFILE] [-a]
-                    [-c ISOCOUNTRYSIZE] [-s STATISTICSFILE]
+usage: ofac_mapper.py [-h] [-i INPUTFILE] [-o OUTPUTFILE] [-a]
+                    [-s STATISTICSFILE]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -35,7 +35,7 @@ optional arguments:
 1. [Prerequisites](#prerequisites)
 1. [Installation](#installation)
 1. [Configuring Senzing](#configuring-senzing)
-1. [Running the ofac2json mapper](#running-the-ofac2json-mapper)
+1. [Running the ofac_mapper mapper](#running-the-ofac_mapper-mapper)
 1. [Loading into Senzing](#loading-into-senzing)
 1. [Mapping other data sources](#mapping-other-data-sources)
 1. [Optional ini file parameter](#optional-ini-file-parameter)
@@ -49,11 +49,10 @@ optional arguments:
 
 Place the the following files on a directory of your choice ...
 
-- [ofac2json.py](ofac2json.py)
-- [ofacConfigUpdates.json](ofacConfigUpdates.json)
-- [isoCountries2.json](isoCountries2.json)
-- [isoCountries3.json](isoCountries3.json)
-- [isoStates.json](isoStates.json)
+- [ofac_mapper.py](ofac_mapper.py)
+- [ofac_config_updates.g2c](ofac_config_updates.g2c)
+- [iso_countries.json](iso_countries.json)
+- [iso_states.json](iso_states.json)
 
 *Note:* The iso\*.json file are extensible. They currently only contain the most common country and state name variations. Additional entries can be added as desired. This conversion program extracts and standardizes country codes from the fields: nationality, citizenship, place of birth, addresses, passports and other national identifiers.
 
@@ -64,7 +63,7 @@ Place the the following files on a directory of your choice ...
 From your /<project directory>/g2/python directory ...
 
 ```console
-python3 G2ConfigTool.py <path-to-file>/ofacConfigUpdates.json
+python3 G2ConfigTool.py <path-to-file>/ofac_config_updates.g2c
 ```
 
 This will step you through the process of adding the data sources, entity types, features, attributes and other settings needed to load this watch list data into Senzing. After each command you will see a status message saying "success" or "already exists".  For instance, if you run the script twice, the second time through they will all say "already exists" which is OK.
@@ -73,7 +72,7 @@ This will step you through the process of adding the data sources, entity types,
 
 The additional entity types and features needed to load aircraft and vessels are also commented out.  You should only uncomment them if you are trying to match aircraft and vessels as well.
 
-### Running the ofac2json mapper
+### Running the ofac_mapper mapper
 
 First, download the latest sdn.xml file from
 [https://www.treasury.gov/ofac/downloads](https://www.treasury.gov/ofac/downloads).
@@ -82,7 +81,7 @@ This is the only file needed. It is a good practice to rename it based on the pu
 Second, run the mapper.  Typical usage:
 
 ```console
-python ofac2json.py -i /<path-to-file>/sdn-yyyy-mm-dd.xml
+python ofac_mapper.py -i /<path-to-file>/sdn-yyyy-mm-dd.xml
 ```
 
 The output file defaults to the same name and location as the input file except the extension is changed to .json.

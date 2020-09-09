@@ -471,13 +471,11 @@ if __name__ == "__main__":
     argparser.add_argument('-i', '--inputFile', dest='inputFile', type=str, default=None, help='an sdn.xml file downloaded from https://www.treasury.gov/ofac/downloads.')
     argparser.add_argument('-o', '--outputFile', dest='outputFile', type=str, help='output filename, defaults to input file name with a .json extension.')
     argparser.add_argument('-a', '--includeAll', dest='includeAll', action='store_true', default=False, help='convert all entity types including vessels and aircraft.')
-    #argparser.add_argument('-c', '--isoCountrySize', dest='isoCountrySize', type=int, default=3, help='ISO country code size. Either 2 or 3, default=3.')
     argparser.add_argument('-s', '--statisticsFile', dest='statisticsFile', type=str, help='optional statistics filename in json format.')
     args = argparser.parse_args()
     inputFile = args.inputFile
     outputFile = args.outputFile
     includeAll = args.includeAll
-    isoCountrySize = 3 #--args.isoCountrySize #--3 is a better standard for country so as not to be confused with 2 digit state codes 
     statisticsFile = args.statisticsFile
 
     if not (inputFile):
@@ -490,18 +488,7 @@ if __name__ == "__main__":
     if not (outputFile):
         outputFile = inputFile + '.json'
     
-    #--need conversion table for country codes
-    if isoCountrySize == 3:
-        isoCountryFile = 'isoCountries3.json'
-    elif isoCountrySize == 2:
-        isoCountryFile = 'isoCountries2.json'
-    else:
-        print('')
-        print('The ISO Country size must be 2 or 3.')
-        print('')
-        sys.exit(1)
-
-    isoCountryFile = appPath + os.path.sep + isoCountryFile
+    isoCountryFile = appPath + os.path.sep + 'iso_countries.json'
     if not os.path.exists(isoCountryFile):
         print('')
         print('File %s is missing!' % (isoCountryFile))
@@ -515,7 +502,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     #--need conversion table for country codes
-    isoStatesFile = appPath + os.path.sep + 'isoStates.json'
+    isoStatesFile = appPath + os.path.sep + 'iso_states.json'
     if not os.path.exists(isoStatesFile):
         print('')
         print('File %s is missing!' % (isoCountriesFile))
