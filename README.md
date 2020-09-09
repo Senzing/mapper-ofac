@@ -37,7 +37,6 @@ optional arguments:
 1. [Configuring Senzing](#configuring-senzing)
 1. [Running the ofac_mapper mapper](#running-the-ofac_mapper-mapper)
 1. [Loading into Senzing](#loading-into-senzing)
-1. [Mapping other data sources](#mapping-other-data-sources)
 1. [Optional ini file parameter](#optional-ini-file-parameter)
 
 ### Prerequisites
