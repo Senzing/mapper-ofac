@@ -317,6 +317,11 @@ def processFile(inputFile, outputFile, includeAll):
                         idData['PASSPORT_NUMBER'] = idNumber
                         idData['PASSPORT_COUNTRY'] = isoCountry
 
+                    #--odd case to be trapped before national_id_number
+                    elif idTypeUpper == 'IDENTIFICATION NUMBER' and idNumber.startswith('IMO'):
+                        g2idType = 'IMO_NUMBER'
+                        idData['IMO_NUMBER'] = idNumber.replace('IMO ','')
+
                     elif any(idTypeUpper.startswith(expression) for expression in ['NATIONAL ID', 'CEDULA', 'IDENTIFICATION NUMBER', 'NATIONAL FOREIGN ID NUMBER', 'D.N.I.', 'KENYAN ID NO.']) or 'PERSONAL ID' in idTypeUpper: 
                         g2idType = 'NATIONAL_ID_NUMBER'
                         idData['NATIONAL_ID_NUMBER'] = idNumber
