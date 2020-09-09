@@ -3,7 +3,6 @@
 import os
 import sys
 import argparse
-import urllib.request as urllib
 import xml.etree.ElementTree as etree
 from datetime import datetime
 import json
@@ -92,7 +91,7 @@ def processFile(inputFile, outputFile, includeAll):
 
     xmlDoc = f.read()
     f.close()
-    if type(xmlDoc) != str: #--urllib returns bytes for python3
+    if type(xmlDoc) != str:
         xmlDoc = xmlDoc.decode('utf-8')
     
     #--name spaces not needed and can mess up etree if not accessible
