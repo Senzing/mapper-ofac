@@ -68,7 +68,7 @@ python3 G2ConfigTool.py <path-to-file>/ofac_config_updates.g2c
 
 This will step you through the process of adding the data sources, entity types, features, attributes and other settings needed to load this watch list data into Senzing. After each command you will see a status message saying "success" or "already exists".  For instance, if you run the script twice, the second time through they will all say "already exists" which is OK.
 
-*WARNING:* The are a few commented out best practice settings described in the configuration file as they affect performance and quality. Only use them if you understand and are OK with the effects.
+*WARNING:* The are a few commented out optional settings described in the configuration file as they affect performance and quality. Only use them if you understand and are OK with the effects.
 
 The additional entity types and features needed to load aircraft and vessels are also commented out.  You should only uncomment them if you are trying to match aircraft and vessels as well.
 
@@ -103,12 +103,6 @@ python G2Loader.py -f /<path-to-file>/ofac-yyyy-mm-dd.json
 The OFAC currently only contains around 7,000 records and loads in a matter of minutes.
 
 If you use the API directly, then you just need to perform an addRecord for each line of the file.
-
-### Mapping other data sources
-
-Watch lists are harder to match simply because often the only data they contain that matches your other data sources are name, partial date of birth, and citizenship or nationality.  Complete address or identifier matches are possible but more rare. 
-
-If your own data has other identifiers beyond the ssn, passport, drivers license, national_id, etc; look for them in the mapping statistics file under the OTHER_ID and UNKNOWN_ID sections.  This is where hidden values like DUNS_NUMBER. GENDER and WEBSITE_ADDRESS were found and added to the standard mapping.
 
 ### Optional ini file parameter
 

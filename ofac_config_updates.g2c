@@ -10,16 +10,16 @@ addFeature {"id": "80", "feature": "LEI_NUMBER", "class": "ISSUED_ID", "behavior
 addAttribute {"id": "2521", "attribute": "LEI_NUMBER", "class": "IDENTIFIER", "feature": "LEI_NUMBER", "element": "ID_NUM", "required": "Yes", "default": "", "advanced": "No", "internal": "No"}
 addAttribute {"id": "2522", "attribute": "LEI_COUNTRY", "class": "IDENTIFIER", "feature": "LEI_NUMBER", "element": "COUNTRY", "required": "Yes", "default": "", "advanced": "No", "internal": "No"}
 
-#--best practice for watch list screening - adds additional name expressions based on country pulled from address, nationality, passport, etc
+#--optional setting 1 - adds additional name expressions based on country pulled from address, nationality, passport, etc
 #--caveat: minor performance effect, but good improvement as about half the address in this watch list only have country
 #addExpressionCall {"id": 33, "element": "COUNTRY_CODE", "execOrder": 100, "function": "FEAT_BUILDER", "is_virtual": "No", "expressionFeature": "COUNTRY_OF_ASSOCIATION", "elementList": [{"featureLink": "parent", "element": "COUNTRY", "required": "No"}, {"featureLink": "parent", "element": "COUNTRY_CODE", "required": "No"}]}
 
-#--best practice for watch list screening - make name and address used for candidates
+#--optional setting 2 - make name and address used for candidates
 #--caveat: minor performance effect and improvement
 #setFeature {"feature": "NAME", "candidates": "Yes"}
 #setFeature {"feature": "ADDRESS", "candidates": "Yes"}
 
-#--best practice for watch list screening - turn off distinct names 
+#--optional setting 3 - turn off distinct names 
 #--caveat: major performance effect and improvement
 #setDistinct Off
 
@@ -43,4 +43,3 @@ addAttribute {"id": "2522", "attribute": "LEI_COUNTRY", "class": "IDENTIFIER", "
 #addAttribute {"attribute": "AIRCRAFT_TAIL_NUM", "class": "ATTRIBUTE", "feature": "AIRCRAFT_TAIL_NUM", "element": "ID_NUM", "required": "Yes"}
 
 save
-
