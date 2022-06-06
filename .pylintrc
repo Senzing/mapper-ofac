@@ -1,0 +1,30 @@
+[pylint]
+disable=
+    bare-except,
+    consider-using-f-string,
+    consider-using-with,
+    invalid-name,
+    line-too-long,
+    missing-function-docstring,
+    missing-module-docstring,
+    multiple-statements,
+    redefined-builtin,
+    redefined-outer-name,
+    superfluous-parens,
+    too-many-branches,
+    too-many-locals,
+    too-many-nested-blocks,
+    too-many-statements,
+    trailing-whitespace,
+    undefined-variable,
+    unidiomatic-typecheck,
+    unspecified-encoding,
+    unused-variable,
+    useless-return,
+    using-constant-test,
+good-names=
+    template-python
+ignore=
+    __init__.py,
+notes=
+    FIXME,
