@@ -141,14 +141,13 @@ def processFile(inputFile, outputFile, includeAll):
             if getValue(sdnEntry, 'sdnType') == 'Aircraft':
                 g2EntityType = 'AIRCRAFT'
         if g2EntityType:
-            updateStat('ENTITY_TYPE', g2EntityType)
+            updateStat('RECORD_TYPE', g2EntityType)
             rowCnt += 1 
         
             isoCountryList = []
             
             jsonData = {}
             jsonData['DATA_SOURCE'] = 'OFAC'
-            jsonData['ENTITY_TYPE'] = g2EntityType
             jsonData['RECORD_TYPE'] = g2EntityType
             jsonData['RECORD_ID'] = getValue(sdnEntry, 'uid')
             jsonData['OFAC_ID'] = getValue(sdnEntry, 'uid')
