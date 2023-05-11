@@ -130,26 +130,25 @@ def processFile(inputFile, outputFile, includeAll):
     for sdnEntry in xmlRoot.findall('sdnEntry'):
 
         #--filter for only entities and individuals unless they want to include all
-        g2EntityType = None
+        g2RecordType = None
         if getValue(sdnEntry, 'sdnType') in ('Entity', 'Individual') or includeAll:
             if getValue(sdnEntry, 'sdnType') == 'Entity':
-                g2EntityType = 'ORGANIZATION'
+                g2RecordType = 'ORGANIZATION'
             if getValue(sdnEntry, 'sdnType') == 'Individual':
-                g2EntityType = 'PERSON'
+                g2RecordType = 'PERSON'
             if getValue(sdnEntry, 'sdnType') == 'Vessel':
-                g2EntityType = 'VESSEL'
+                g2RecordType = 'VESSEL'
             if getValue(sdnEntry, 'sdnType') == 'Aircraft':
-                g2EntityType = 'AIRCRAFT'
-        if g2EntityType:
-            updateStat('ENTITY_TYPE', g2EntityType)
+                g2RecordType = 'AIRCRAFT'
+        if g2RecordType:
+            updateStat('RECORD_TYPE', g2RecordType)
             rowCnt += 1 
         
             isoCountryList = []
             
             jsonData = {}
             jsonData['DATA_SOURCE'] = 'OFAC'
-            jsonData['ENTITY_TYPE'] = g2EntityType
-            jsonData['RECORD_TYPE'] = g2EntityType
+            jsonData['RECORD_TYPE'] = g2RecordType
             jsonData['RECORD_ID'] = getValue(sdnEntry, 'uid')
             jsonData['OFAC_ID'] = getValue(sdnEntry, 'uid')
             jsonData['PUBLISH_DATE'] = publishDate
@@ -405,7 +404,7 @@ def processFile(inputFile, outputFile, includeAll):
                             jsonData['ID%s' % itemNum] = '%s %s %s' % (idType, idNumber, idCountry)
                             g2idType = 'UNKNOWN_ID'
 
-                    updateStat(g2EntityType, g2idType + ': ' + idType + ' (' + isoCountry + ')', idNumber + '  (' + idCountry + ')')
+                    updateStat(g2RecordType, g2idType + ': ' + idType + ' (' + isoCountry + ')', idNumber + '  (' + idCountry + ')')
                     if idData:
                         idList.append(idData)
 
@@ -414,7 +413,7 @@ def processFile(inputFile, outputFile, includeAll):
                 jsonData['ID_LIST'] = idList
 
             #--still some vessel info in this structure
-            if g2EntityType == 'VESSEL':
+            if g2RecordType == 'VESSEL':
                 if getValue(sdnEntry, 'vesselInfo/callSign'):
                     jsonData['CALL_SIGN'] = getValue(sdnEntry, 'vesselInfo/callSign')
                     updateStat('VESSEL', 'CALL_SIGN', getValue(sdnEntry, 'vesselInfo/callSign'))
