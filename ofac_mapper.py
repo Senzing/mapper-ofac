@@ -8,14 +8,6 @@ from datetime import datetime
 import json
 import random
 
-#----------------------------------------
-def pause(question='PRESS ENTER TO CONTINUE ...'):
-    """ pause for debug purposes """
-    if sys.version[0] == '2':
-        response = raw_input(question)
-    else:
-        response = input(question)
-    return response
 
 #----------------------------------------
 def getValue (segment, tagName):
@@ -72,6 +64,33 @@ def updateStat(cat1, cat2, example = None):
                 randomSampleI = random.randint(2,4)
                 statPack[cat1][cat2]['examples'][randomSampleI] = example
     return
+
+
+#----------------------------------------
+def capture_mapped_stats(json_data):
+    record_type = json_data.get('RECORD_TYPE', 'UNKNOWN_RECORD_TYPE')
+    for key1 in json_data:
+        if type(json_data[key1]) != list:
+            updateStat(record_type, key1, json_data[key1])
+        else:
+            for subrecord in json_data[key1]:
+                for key2 in subrecord:
+                    updateStat(record_type, key2, subrecord[key2])
+
+
+#----------------------------------------
+def remove_empty_tags(d):
+    if isinstance(d, dict):
+        for  k, v in list(d.items()):
+            if v is None or len(str(v).strip()) == 0:
+                del d[k]
+            else:
+                remove_empty_tags(v)
+    if isinstance(d, list):
+        for v in d:
+            remove_empty_tags(v)
+    return d
+
 
 #----------------------------------------
 def processFile(inputFile, outputFile, includeAll):
@@ -134,14 +153,17 @@ def processFile(inputFile, outputFile, includeAll):
         if getValue(sdnEntry, 'sdnType') in ('Entity', 'Individual') or includeAll:
             if getValue(sdnEntry, 'sdnType') == 'Entity':
                 g2RecordType = 'ORGANIZATION'
-            if getValue(sdnEntry, 'sdnType') == 'Individual':
+            elif getValue(sdnEntry, 'sdnType') == 'Individual':
                 g2RecordType = 'PERSON'
-            if getValue(sdnEntry, 'sdnType') == 'Vessel':
+            elif getValue(sdnEntry, 'sdnType') == 'Vessel':
                 g2RecordType = 'VESSEL'
-            if getValue(sdnEntry, 'sdnType') == 'Aircraft':
+            elif getValue(sdnEntry, 'sdnType') == 'Aircraft':
                 g2RecordType = 'AIRCRAFT'
+            else:
+                updateStat('!UNKNOWN_RECORD_TYPE', getValue(sdnEntry, 'sdnType'))
+
         if g2RecordType:
-            updateStat('RECORD_TYPE', g2RecordType)
+            updateStat('!RECORD_TYPE', g2RecordType)
             rowCnt += 1 
         
             isoCountryList = []
@@ -154,10 +176,8 @@ def processFile(inputFile, outputFile, includeAll):
             jsonData['PUBLISH_DATE'] = publishDate
             if getValue(sdnEntry, 'title'):
                 jsonData['SDN_TITLE'] = getValue(sdnEntry, 'title')
-                updateStat('PAYLOAD_DATA', 'SDN_TITLE')
             if getValue(sdnEntry, 'remarks'):
                 jsonData['SDN_REMARKS'] = getValue(sdnEntry, 'remarks')
-                updateStat('PAYLOAD_DATA', 'SDN_REMARKS')
                 
             #--add the SDN programs (usually only one)
             programList = None
@@ -169,7 +189,6 @@ def processFile(inputFile, outputFile, includeAll):
                         programList = programList + ', ' + getValue(programRecord, 'program')
             if programList:
                 jsonData['SDN_PROGRAM'] = programList
-                updateStat('PAYLOAD_DATA', 'SDN_PROGRAM')
 
             #--get the names 
             nameList = []
@@ -185,7 +204,6 @@ def processFile(inputFile, outputFile, includeAll):
                     if getValue(sdnEntry, 'firstName'):
                         nameDict['NAME_FIRST'] = getValue(sdnEntry, 'firstName')
                 nameList.append(nameDict)
-                updateStat('NAME_TYPE', 'PRIMARY')
 
             #--add any AKAs
             for subRecord in sdnEntry.findall('akaList/aka'):
@@ -200,7 +218,6 @@ def processFile(inputFile, outputFile, includeAll):
                         if getValue(subRecord, 'firstName'):
                             nameDict['NAME_FIRST'] = getValue(subRecord, 'firstName')
                     nameList.append(nameDict)
-                    updateStat('NAME_TYPE', nameDict['NAME_TYPE'])
             if nameList:
                 jsonData['NAME_LIST'] = nameList
 
@@ -210,13 +227,11 @@ def processFile(inputFile, outputFile, includeAll):
                 if getValue(subRecord, 'dateOfBirth'):
                     if formatDate(getValue(subRecord, 'dateOfBirth')):
                         attrList.append({'DATE_OF_BIRTH': formatDate(getValue(subRecord, 'dateOfBirth'))})
-                        updateStat('DATE_OF_BIRTH', len(getValue(subRecord, 'dateOfBirth')), getValue(subRecord, 'dateOfBirth'))
 
             for subRecord in sdnEntry.findall('placeOfBirthList/placeOfBirthItem'):
                 if getValue(subRecord, 'placeOfBirth'):
                     countryName = getValue(subRecord, 'placeOfBirth')
                     attrList.append({'PLACE_OF_BIRTH': countryName})
-                    updateStat('ATTRIBUTE', 'PLACE_OF_BIRTH', countryName)
                     if countryName.lower() in isoCountries: #--also map the code for matching
                         isoCountryList.append(isoCountries[countryName.lower()])
                     elif ',' in countryName: #--check after possible city
@@ -231,14 +246,12 @@ def processFile(inputFile, outputFile, includeAll):
             for subRecord in sdnEntry.findall('nationalityList/nationality'):
                 if getValue(subRecord, 'country'):
                     attrList.append({'NATIONALITY': getValue(subRecord, 'country')})
-                    updateStat('ATTRIBUTE', 'NATIONALITY', getValue(subRecord, 'country'))
                     if getValue(subRecord, 'country').lower() in isoCountries: #--also map the code for matching
                         isoCountryList.append(isoCountries[getValue(subRecord, 'country').lower()])
 
             for subRecord in sdnEntry.findall('citizenshipList/citizenship'):
                 if getValue(subRecord, 'country'):
                     attrList.append({'CITIZENSHIP': getValue(subRecord, 'country')})
-                    updateStat('ATTRIBUTE', 'CITIZENSHIP', getValue(subRecord, 'country'))
                     if getValue(subRecord, 'country').lower() in isoCountries: #--also map the code for matching
                         isoCountryList.append(isoCountries[getValue(subRecord, 'country').lower()])
 
@@ -266,9 +279,9 @@ def processFile(inputFile, outputFile, includeAll):
                 if addrDict:
                     addrList.append(addrDict)
                     if len(addrDict) == 1 and list(addrDict.keys())[0] == 'ADDR_COUNTRY':
-                        updateStat('ADDRESS', 'country only')
+                        updateStat('!ADDRESS', 'country only')
                     else:
-                        updateStat('ADDRESS', 'UNTYPED')
+                        updateStat('!ADDRESS', 'UNTYPED')
                     if 'ADDR_COUNTRY' in addrDict and addrDict['ADDR_COUNTRY'].lower() in isoCountries: #--also map the code for matching
                         isoCountryList.append(isoCountries[addrDict['ADDR_COUNTRY'].lower()])
             if addrList:
@@ -400,11 +413,12 @@ def processFile(inputFile, outputFile, includeAll):
 
                         #--some value that probabaly not an ID (does not assign idData!)
                         else:
-                            itemNum += 1
-                            jsonData['ID%s' % itemNum] = '%s %s %s' % (idType, idNumber, idCountry)
-                            g2idType = 'UNKNOWN_ID'
+                            if idType not in jsonData:
+                                jsonData[idType] = idNumber + (f" ({idCountry})" if idCountry else '')
+                            else: 
+                                jsonData[idType] += ' | ' + idNumber + (f" ({idCountry})" if idCountry else '')
 
-                    updateStat(g2RecordType, g2idType + ': ' + idType + ' (' + isoCountry + ')', idNumber + '  (' + idCountry + ')')
+                    updateStat('!IDTYPE', f"{g2idType}|{idType}|{isoCountry}", idNumber)
                     if idData:
                         idList.append(idData)
 
@@ -416,32 +430,18 @@ def processFile(inputFile, outputFile, includeAll):
             if g2RecordType == 'VESSEL':
                 if getValue(sdnEntry, 'vesselInfo/callSign'):
                     jsonData['CALL_SIGN'] = getValue(sdnEntry, 'vesselInfo/callSign')
-                    updateStat('VESSEL', 'CALL_SIGN', getValue(sdnEntry, 'vesselInfo/callSign'))
                 if getValue(sdnEntry, 'vesselInfo/vesselType'):
                     jsonData['vesselType'] = getValue(sdnEntry, 'vesselInfo/vesselType')
-                    updateStat('VESSEL', 'vesselType', getValue(sdnEntry, 'vesselInfo/vesselType'))
                 if getValue(sdnEntry, 'vesselInfo/vesselFlag'):
                     jsonData['vesselFlag'] = getValue(sdnEntry, 'vesselInfo/vesselFlag')
-                    updateStat('VESSEL', 'vesselFlag', getValue(sdnEntry, 'vesselInfo/vesselFlag'))
                 if getValue(sdnEntry, 'vesselInfo/vesselOwner'):
                     jsonData['vesselOwner'] = getValue(sdnEntry, 'vesselInfo/vesselOwner')
-                    updateStat('VESSEL', 'vesselOwner', getValue(sdnEntry, 'vesselInfo/vesselOwner'))
                 if getValue(sdnEntry, 'vesselInfo/tonnage'):
                     jsonData['tonnage'] = getValue(sdnEntry, 'vesselInfo/tonnage')
-                    updateStat('VESSEL', 'tonnage', getValue(sdnEntry, 'vesselInfo/tonnage'))
                 if getValue(sdnEntry, 'vesselInfo/grossRegisteredTonnage'):
                     jsonData['grossRegisteredTonnage'] = getValue(sdnEntry, 'vesselInfo/grossRegisteredTonnage')
-                    updateStat('VESSEL', 'grossRegisteredTonnage', getValue(sdnEntry, 'vesselInfo/grossRegisteredTonnage'))
                     
-            #--as of 2.0 country of association can be cconfigured to be computed automatically for all data sources!
-            if False: 
-                #--add all the country codes found 
-                subList = []
-                for cntryCode in set(isoCountryList):
-                    subList.append({'COUNTRY_CODE': cntryCode})
-                    updateStat('ATTRIBUTE','COUNTRY_OF_ASSOCIATION')
-                if subList:
-                    jsonData['ISO_COUNTRY_CODES'] = subList
+            capture_mapped_stats(jsonData)
 
         jsonStr = json.dumps(jsonData)
         try: outputHandle.write(jsonStr + '\n')
