@@ -2,10 +2,9 @@
 
 ## Overview
 
-The [ofac_mapper.py](ofac_mapper.py) python script converts the Office of Foreign Asset Control (OFAC)
-**sdn.xml** file available from
-[https://www.treasury.gov/ofac/downloads](https://ofac.treasury.gov/specially-designated-nationals-list-data-formats-data-schemas)
-to a json file ready to load into Senzing.
+The [ofac_mapper.py](ofac_mapper.py) python script converts the US Treasury's OFAC SDN list into a json file ready to load into senzing.
+You will first need to download the **sdn.xml** file from [here](https://ofac.treasury.gov/specially-designated-nationals-list-data-formats-data-schemas)
+.
 
 Loading watch lists requires some special features and configurations of Senzing. These are contained in the
 [ofac_config_updates.g2c](ofac_config_updates.g2c) file.
