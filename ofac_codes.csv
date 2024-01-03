@@ -1,0 +1,319 @@
+REVIEWED,RAW_TYPE,RAW_CODE,RAW_MODIFIER,SENZING_ATTR,SENZING_DEFAULT,RECORD_COUNT,UNIQUE_COUNT,UNIQUE_PERCENT,TOP1,TOP2,TOP3,TOP4,TOP5,TOP6,TOP7,TOP8,TOP9,TOP10
+Y,idCountry,Afghanistan,,,AFG,32,7,21.88,Passport (17),National ID No. (6),Tazkira National ID Card (3),Tax ID No. (2),Afghan Money Service Provider License Number (2),Electoral Registry No. (1),Registration ID (1),,,
+Y,idCountry,Angola,,,AGO,3,2,66.67,Passport (2),Registration Number (1),,,,,,,,
+Y,idCountry,Antigua and Barbuda,,,ATG,1,1,100.0,Passport (1),,,,,,,,,
+Y,idCountry,Argentina,,,ARG,21,4,19.05,Passport (7),C.U.I.T. (7),D.N.I. (6),Cedula No. (1),,,,,,
+Y,idCountry,Armenia,,,ARM,4,2,50.0,Registration Number (2),Tax ID No. (2),,,,,,,,
+Y,idCountry,Australia,,,AUS,13,4,30.77,Passport (9),Driver's License No. (2),Registration ID (1),Company Number (1),,,,,,
+Y,idCountry,Austria,,,AUT,5,4,80.0,National ID No. (2),Passport (1),Registration Number (1),Tax ID No. (1),,,,,,
+Y,idCountry,"Bahamas, The",,,BHS,1,1,100.0,Registration Number (1),,,,,,,,,
+Y,idCountry,Bahrain,,,BHR,6,1,16.67,Passport (6),,,,,,,,,
+Y,idCountry,Bangladesh,,,BGD,7,2,28.57,National ID No. (5),Passport (2),,,,,,,,
+Y,idCountry,Barbados,,,BRB,3,2,66.67,Passport (2),Pilot License Number (1),,,,,,,,
+Y,idCountry,Belarus,,,BLR,116,9,7.76,Registration Number (43),National ID No. (24),Tax ID No. (23),Passport (13),Government Gazette Number (6),National Foreign ID Number (3),Registration ID (2),Business Registration Document # (1),Identification Number (1),
+Y,idCountry,Belgium,,,BEL,43,11,25.58,Passport (17),Enterprise Number (7),V.A.T. Number (4),Branch Unit Number (3),Registration Number (3),National ID No. (2),Business Registration Number (2),Tax ID No. (2),Identification Number (1),C.R. No. (1)
+Y,idCountry,Belize,,,BLZ,3,1,33.33,Passport (3),,,,,,,,,
+Y,idCountry,Bermuda,,,BMU,1,1,100.0,Business Registration Number (1),,,,,,,,,
+Y,idCountry,Bolivia,,,BOL,2,2,100.0,NIT # (1),Tax ID No. (1),,,,,,,,
+Y,idCountry,Bosnia and Herzegovina,,,BIH,30,5,16.67,Passport (10),National ID No. (7),Tax ID No. (7),Registration Number (3),Business Registration Number (3),,,,,
+Y,idCountry,Brazil,,,BRA,14,6,42.86,Identification Number (5),Tax ID No. (5),Cedula No. (1),National Foreign ID Number (1),Passport (1),National ID No. (1),,,,
+Y,idCountry,Brunei,,,BRN,1,1,100.0,Company Number (1),,,,,,,,,
+Y,idCountry,Bulgaria,,,BGR,88,9,10.23,V.A.T. Number (34),Government Gazette Number (31),National ID No. (7),Passport (5),Registration Number (4),Business Registration Number (4),Personal ID Card (1),Tax ID No. (1),Identification Number (1),
+Y,idCountry,Burma,,,MMR,98,5,5.1,National ID No. (55),Passport (20),Registration Number (13),Business Registration Number (7),Company Number (3),,,,,
+Y,idCountry,Cabo Verde.  Previously Cape Verde.,,,CPV,2,2,100.0,National ID No. (1),Passport (1),,,,,,,,
+Y,idCountry,Cambodia,,,KHM,29,3,10.34,Company Number (16),Tax ID No. (8),Passport (5),,,,,,,
+Y,idCountry,Canada,,,CAN,26,9,34.62,Passport (12),Company Number (4),Tax ID No. (3),Business Number (2),Driver's License No. (1),MSB Registration Number (1),Commercial Registry Number (1),National ID No. (1),Registration Number (1),
+Y,idCountry,Cayman Islands,,,CYM,1,1,100.0,Registration Number (1),,,,,,,,,
+Y,idCountry,Central African Republic,,,CAF,7,4,57.14,Passport (4),Identification Number (1),Business Registration Number (1),Registration Number (1),,,,,,
+Y,idCountry,Chile,,,CHL,1,1,100.0,D.N.I. (1),,,,,,,,,
+Y,idCountry,China,,,CHN,222,18,8.11,National ID No. (54),Unified Social Credit Code (USCC) (54),Passport (45),Registration Number (26),Citizen's Card Number (7),United Social Credit Code Certificate (USCCC) (7),Identification Number (6),National Foreign ID Number (4),Business Registration Number (3),Tax ID No. (3)
+Y,idCountry,Colombia,,,COL,650,8,1.23,Cedula No. (280),NIT # (216),Passport (106),Matricula Mercantil No (36),Identification Number (4),National ID No. (4),National Foreign ID Number (3),Driver's License No. (1),,
+Y,idCountry,Comoros,,,COM,1,1,100.0,Passport (1),,,,,,,,,
+Y,idCountry,"Congo, Democratic Republic of the",,,COG,26,5,19.23,Commercial Registry Number (15),Passport (7),Identification Number (2),C.R. No. (1),Registration ID (1),,,,,
+Y,idCountry,Costa Rica,,,CRI,3,2,66.67,Cedula No. (2),Residency Number (1),,,,,,,,
+Y,idCountry,Cote d Ivoire,,,CIV,1,1,100.0,Commercial Registry Number (1),,,,,,,,,
+Y,idCountry,Croatia,,,HRV,6,3,50.0,Tax ID No. (3),Registration Number (2),Registration ID (1),,,,,,,
+Y,idCountry,Cuba,,,CUB,6,2,33.33,Passport (3),National ID No. (3),,,,,,,,
+Y,idCountry,Cyprus,,,CYP,92,8,8.7,Registration Number (50),Passport (18),National ID No. (11),Registration ID (5),Tax ID No. (5),Trade License No. (1),V.A.T. Number (1),Identification Number (1),,
+Y,idCountry,Czech Republic,,,CZE,7,5,71.43,Registration Number (3),Legal Entity Number (1),Company Number (1),Tax ID No. (1),V.A.T. Number (1),,,,,
+Y,idCountry,Djibouti,,,DJI,7,3,42.86,Passport (4),Registration Number (2),Identification Number (1),,,,,,,
+Y,idCountry,Dominican Republic,,,DOM,27,4,14.81,Tax ID No. (11),Cedula No. (10),Passport (4),National ID No. (2),,,,,,
+Y,idCountry,Ecuador,,,ECU,7,2,28.57,RUC # (5),Cedula No. (2),,,,,,,,
+Y,idCountry,Egypt,,,EGY,12,1,8.33,Passport (12),,,,,,,,,
+Y,idCountry,El Salvador,,,SLV,12,3,25.0,Passport (6),National ID No. (4),Identification Number (2),,,,,,,
+Y,idCountry,Eritrea,,,ERI,3,2,66.67,Passport (2),National ID No. (1),,,,,,,,
+Y,idCountry,Estonia,,,EST,12,4,33.33,Registration Number (4),V.A.T. Number (4),Tax ID No. (3),Business Registration Number (1),,,,,,
+Y,idCountry,Ethiopia,,,ETH,1,1,100.0,Passport (1),,,,,,,,,
+Y,idCountry,Finland,,,FIN,16,5,31.25,Registration Number (5),Identification Number (4),Tax ID No. (3),Passport (2),V.A.T. Number (2),,,,,
+Y,idCountry,France,,,FRA,22,8,36.36,Passport (8),Tax ID No. (7),Identification Number (2),National Foreign ID Number (1),Registration ID (1),Chamber of Commerce Number (1),VisaNumberID (1),Registration Number (1),,
+Y,idCountry,Georgia,,,GEO,4,2,50.0,Passport (2),National ID No. (2),,,,,,,,
+Y,idCountry,Germany,,,DEU,62,11,17.74,Passport (15),Registration ID (13),National ID No. (9),Registration Number (8),Travel Document Number (6),V.A.T. Number (4),Tax ID No. (3),C.R. No. (1),Commercial Registry Number (1),Company Number (1)
+Y,idCountry,Ghana,,,GHA,1,1,100.0,Passport (1),,,,,,,,,
+Y,idCountry,Gibraltar,,,GIB,4,3,75.0,Company Number (2),Public Registration Number (1),Registration Number (1),,,,,,,
+Y,idCountry,Greece,,,GRC,2,2,100.0,National ID No. (1),Passport (1),,,,,,,,
+Y,idCountry,Guatemala,,,GTM,89,9,10.11,NIT # (33),Cedula No. (16),Passport (14),C.U.I. (13),Driver's License No. (5),National ID No. (4),Identification Number (2),Folio Mercantil No. (1),Trade License No. (1),
+Y,idCountry,Guinea,,,GIN,4,2,50.0,Passport (3),Diplomatic Passport (1),,,,,,,,
+Y,idCountry,Guinea-Bissau,,,GNB,7,2,28.57,Passport (5),National ID No. (2),,,,,,,,
+Y,idCountry,Haiti,,,HTI,10,2,20.0,National ID No. (6),Passport (4),,,,,,,,
+Y,idCountry,Honduras,,,HND,20,5,25.0,Numero de Identidad (8),RTN (5),Tax ID No. (4),National ID No. (2),Passport (1),,,,,
+Y,idCountry,Hong Kong,,,HKG,160,14,8.75,C.R. No. (51),Registration Number (28),Business Registration Number (20),National ID No. (16),Passport (10),Company Number (8),Commercial Registry Number (7),Identification Number (6),Certificate of Incorporation Number (5),Business Registration Document # (3)
+Y,idCountry,Hungary,,,HUN,3,2,66.67,Tax ID No. (2),Registration Number (1),,,,,,,,
+Y,idCountry,India,,,IND,40,7,17.5,Passport (20),Registration Number (9),Company Number (7),Seafarer's Identification Document (1),Tax ID No. (1),Business Registration Number (1),Trade License No. (1),,,
+Y,idCountry,Indonesia,,,IDN,18,4,22.22,Passport (11),National ID No. (5),Registration Number (1),Identification Number (1),,,,,,
+Y,idCountry,Iran,,,IRN,789,14,1.77,National ID No. (338),Passport (224),Registration Number (148),Business Registration Number (23),Birth Certificate Number (17),Registration ID (14),Identification Number (7),Commercial Registry Number (5),Company Number (4),Diplomatic Passport (2)
+Y,idCountry,Iraq,,,IRQ,33,5,15.15,Passport (23),National ID No. (5),Identification Number (3),National Foreign ID Number (1),Business Registration Number (1),,,,,
+Y,idCountry,Ireland,,,IRL,20,2,10.0,Passport (18),Registration Number (2),,,,,,,,
+Y,idCountry,Israel,,,ISR,23,6,26.09,Passport (12),National ID No. (4),Public Registration Number (3),Registration Number (2),Commercial Registry Number (1),Identification Number (1),,,,
+Y,idCountry,Italy,,,ITA,18,7,38.89,Passport (7),Tax ID No. (4),Identification Number (2),Trade License No. (2),Registration ID (1),Personal ID Card (1),V.A.T. Number (1),,,
+Y,idCountry,Jamaica,,,JAM,2,2,100.0,Passport (1),National ID No. (1),,,,,,,,
+Y,idCountry,Japan,,,JPN,2,1,50.0,Company Number (2),,,,,,,,,
+Y,idCountry,Jersey,,,JEY,3,1,33.33,Registration ID (3),,,,,,,,,
+Y,idCountry,Jordan,,,JOR,25,3,12.0,Identification Number (12),Passport (10),National ID No. (3),,,,,,,
+Y,idCountry,Kazakhstan,,,KAZ,2,2,100.0,Registration Number (1),Company Number (1),,,,,,,,
+Y,idCountry,Kenya,,,KEN,12,4,33.33,Passport (8),National ID No. (2),Diplomatic Passport (1),Kenyan ID No. (1),,,,,,
+Y,idCountry,"Korea, North",,,PRK,55,1,1.82,Passport (55),,,,,,,,,
+Y,idCountry,"Korea, South",,,KOR,2,2,100.0,Business Registration Number (1),Registration Number (1),,,,,,,,
+Y,idCountry,Kosovo,,,SRB,15,6,40.0,Registration Number (7),V.A.T. Number (4),Company Number (1),Driver's License No. (1),Passport (1),Tax ID No. (1),,,,
+Y,idCountry,Kuwait,,,KWT,11,4,36.36,Passport (7),National ID No. (2),Identification Number (1),Residency Number (1),,,,,,
+Y,idCountry,Kyrgyzstan,,,KGZ,11,4,36.36,Tax ID No. (4),Passport (3),Identification Number (2),National ID No. (2),,,,,,
+Y,idCountry,Latvia,,,LVA,9,5,55.56,Registration Number (3),Tax ID No. (3),V.A.T. Number (1),National ID No. (1),Passport (1),,,,,
+Y,idCountry,Lebanon,,,LBN,205,12,5.85,Passport (88),Commercial Registry Number (48),Registration Number (30),National ID No. (17),Identification Number (9),Business Registration Number (7),Business Registration Document # (1),Registration ID (1),Company Number (1),License (1)
+Y,idCountry,Liberia,,,LBR,6,1,16.67,Passport (6),,,,,,,,,
+Y,idCountry,Libya,,,LBY,28,4,14.29,Passport (23),National ID No. (3),Personal ID Card (1),Trade License No. (1),,,,,,
+Y,idCountry,Liechtenstein,,,LIE,6,4,66.67,Registration Number (3),Registration ID (1),Passport (1),Identification Number (1),,,,,,
+Y,idCountry,Luxembourg,,,LUX,8,5,62.5,Registration ID (2),Registration Number (2),V.A.T. Number (2),Tax ID No. (1),Identification Number (1),,,,,
+Y,idCountry,Macau,,,MAC,4,4,100.0,Passport (1),National ID No. (1),Registration Number (1),Commercial Registry Number (1),,,,,,
+Y,idCountry,Malaysia,,,MYS,10,6,60.0,Passport (3),Company Number (3),Registration ID (1),Registration Number (1),National ID No. (1),Business Registration Number (1),,,,
+Y,idCountry,Maldives,,,MDV,95,7,7.37,Registration Number (29),National ID No. (22),Passport (16),Permit Number (12),Business Number (10),Business Registration Number (5),Identification Number (1),,,
+Y,idCountry,Mali,,,MLI,12,3,25.0,Passport (8),National ID No. (3),Identification Number (1),,,,,,,
+Y,idCountry,Malta,,,MLT,80,7,8.75,Trade License No. (30),Tax ID No. (14),V.A.T. Number (14),Registration Number (10),National ID No. (5),Company Number (4),Passport (3),,,
+Y,idCountry,"Man, Isle of",,,IMN,2,1,50.0,Registration Number (2),,,,,,,,,
+Y,idCountry,Marshall Islands,,,MHL,14,5,35.71,Commercial Registry Number (6),Business Number (3),Registration Number (2),Business Registration Number (2),Enterprise Number (1),,,,,
+Y,idCountry,Mexico,,,MEX,1059,21,1.98,C.U.R.P. (412),R.F.C. (335),Folio Mercantil No. (125),Passport (64),RFC (21),Electoral Registry No. (20),Credencial electoral (15),Cartilla de Servicio Militar Nacional (13),I.F.E. (12),Driver's License No. (7)
+Y,idCountry,Moldova,,,MDA,11,7,63.64,Registration Number (4),Passport (2),Stateless Person ID Card (1),Refugee ID Card (1),Stateless Person Passport (1),Driver's License No. (1),National Foreign ID Number (1),,,
+Y,idCountry,Monaco,,,MCO,1,1,100.0,Registration Number (1),,,,,,,,,
+Y,idCountry,Mongolia,,,MNG,1,1,100.0,Tax ID No. (1),,,,,,,,,
+Y,idCountry,Montenegro,,,MNE,2,2,100.0,Personal ID Card (1),Passport (1),,,,,,,,
+Y,idCountry,Morocco,,,MAR,5,3,60.0,Passport (3),Moroccan Personal ID No. (1),National ID No. (1),,,,,,,
+Y,idCountry,Mozambique,,,MOZ,7,2,28.57,Passport (5),Numero Unico de Identificacao Tributaria (NUIT) (2),,,,,,,,
+Y,idCountry,Namibia,,,NAM,2,1,50.0,Registration ID (2),,,,,,,,,
+Y,idCountry,Netherlands,,,NLD,38,9,23.68,Tax ID No. (10),Chamber of Commerce Number (6),Legal Entity Number (6),Branch Unit Number (5),Passport (4),Registration Number (4),Registration ID (1),C.R. No. (1),Trade License No. (1),
+Y,idCountry,New Zealand,,,NZL,1,1,100.0,Business Registration Document # (1),,,,,,,,,
+Y,idCountry,Nicaragua,,,NIC,70,6,8.57,Passport (31),National ID No. (26),Diplomatic Passport (5),RUC # (3),Cedula No. (3),Registration ID (2),,,,
+Y,idCountry,Nigeria,,,NGA,12,1,8.33,Passport (12),,,,,,,,,
+Y,idCountry,"North Macedonia, The Republic of",,,MKD,10,4,40.0,Tax ID No. (5),National ID No. (3),Business Registration Number (1),Passport (1),,,,,,
+Y,idCountry,Norway,,,NOR,1,1,100.0,Company Number (1),,,,,,,,,
+Y,idCountry,Oman,,,OMN,9,5,55.56,Passport (3),Registration Number (2),Business Registration Number (2),Commercial Registry Number (1),National ID No. (1),,,,,
+Y,idCountry,Pakistan,,,PAK,138,8,5.8,Passport (65),National ID No. (60),Tax ID No. (4),Identification Number (3),Registered Charity No. (2),Registration Number (2),C.R. No. (1),Registration ID (1),,
+Y,idCountry,Palestinian,,,PSE,19,6,31.58,National ID No. (8),Passport (5),Identification Number (3),Registration ID (1),Refugee ID Card (1),Registration Number (1),,,,
+Y,idCountry,Panama,,,PAN,107,7,6.54,RUC # (80),Folio Mercantil No. (10),Cedula No. (6),Passport (5),Company Number (3),Identification Number (2),Public Registration Number (1),,,
+Y,idCountry,Paraguay,,,PRY,28,7,25.0,Passport (12),RUC # (8),Identification Number (3),Paraguayan tax identification number (2),Cedula No. (1),National ID No. (1),Tax ID No. (1),,,
+Y,idCountry,Peru,,,PER,35,5,14.29,RUC # (25),LE Number (7),National ID No. (1),Passport (1),Driver's License No. (1),,,,,
+Y,idCountry,Philippines,,,PHL,4,2,50.0,Passport (3),SSN (1),,,,,,,,
+Y,idCountry,Poland,,,POL,7,6,85.71,Passport (2),Registration ID (1),V.A.T. Number (1),Registration Number (1),Tax ID No. (1),National ID No. (1),,,,
+Y,idCountry,Portugal,,,PRT,1,1,100.0,Passport (1),,,,,,,,,
+Y,idCountry,Qatar,,,QAT,20,4,20.0,Passport (13),National ID No. (5),Personal ID Card (1),Identification Number (1),,,,,,
+Y,idCountry,Region: Gaza,,,PSE,1,1,100.0,National ID No. (1),,,,,,,,,
+Y,idCountry,Romania,,,ROU,11,8,72.73,Romanian C.R. (3),C.R. No. (2),Romanian Permanent Resident (1),CNP (Personal Numerical Code) (1),Romanian Tax Registration (1),Fiscal Code (1),Business Registration Number (1),Passport (1),,
+Y,idCountry,Russia,,,RUS,3465,16,0.46,Tax ID No. (1638),Registration Number (1159),Government Gazette Number (231),Passport (217),Registration ID (87),National ID No. (56),Business Registration Number (26),Identification Number (26),Legal Entity Number (10),Trade License No. (4)
+Y,idCountry,Rwanda,,,RWA,1,1,100.0,Passport (1),,,,,,,,,
+Y,idCountry,Saint Kitts and Nevis,,,KNA,5,1,20.0,Passport (5),,,,,,,,,
+Y,idCountry,Saint Vincent and the Grenadines,,,VCT,1,1,100.0,Registration Number (1),,,,,,,,,
+Y,idCountry,San Marino,,,SMR,1,1,100.0,Tax ID No. (1),,,,,,,,,
+Y,idCountry,Saudi Arabia,,,SAU,53,5,9.43,Passport (32),National ID No. (17),Residency Number (2),Registration ID (1),Identification Number (1),,,,,
+Y,idCountry,Senegal,,,SEN,3,2,66.67,Passport (2),Personal ID Card (1),,,,,,,,
+Y,idCountry,Serbia,,,SRB,35,8,22.86,V.A.T. Number (9),Tax ID No. (8),Registration Number (7),Registration ID (4),Passport (4),National ID No. (1),Identification Number (1),Driver's License No. (1),,
+Y,idCountry,Seychelles,,,SYC,4,3,75.0,Certificate of Incorporation Number (2),Registration Number (1),Company Number (1),,,,,,,
+Y,idCountry,Sierra Leone,,,SLE,6,2,33.33,Passport (5),Tax ID No. (1),,,,,,,,
+Y,idCountry,Singapore,,,SGP,40,10,25.0,Registration Number (15),National ID No. (4),Registration ID (4),Company Number (4),Identification Number (3),Passport (3),Commercial Registry Number (2),Business Registration Number (2),Tax ID No. (2),Trade License No. (1)
+Y,idCountry,Slovakia,,,SVK,19,5,26.32,Tax ID No. (8),Registration Number (6),Passport (3),V.A.T. Number (1),Identification Number (1),,,,,
+Y,idCountry,Slovenia,,,SVN,19,5,26.32,Registration ID (7),Passport (5),Tax ID No. (4),Personal ID Card (2),Registration Number (1),,,,,
+Y,idCountry,Somalia,,,SOM,2,2,100.0,Registration Number (1),Certificate of Incorporation Number (1),,,,,,,,
+Y,idCountry,South Africa,,,ZAF,77,11,14.29,Tax ID No. (17),National ID No. (11),Commercial Registry Number (9),V.A.T. Number (9),Passport (8),Enterprise Number (8),Trade License No. (8),Registration Number (3),Identification Number (2),Registration ID (1)
+Y,idCountry,South Sudan,,,SSD,18,6,33.33,Passport (10),Tax ID No. (3),Registration Number (2),Personal ID Card (1),Commercial Registry Number (1),National ID No. (1),,,,
+Y,idCountry,Spain,,,ESP,45,12,26.67,D.N.I. (21),National ID No. (7),Tax ID No. (4),Passport (3),C.I.F. (2),Identification Number (2),C.R. No. (1),N.I.E. (1),Personal ID Card (1),Registration Number (1)
+Y,idCountry,Sri Lanka,,,LKA,2,2,100.0,Registration ID (1),Passport (1),,,,,,,,
+Y,idCountry,Sudan,,,SDN,16,2,12.5,Passport (13),National ID No. (3),,,,,,,,
+Y,idCountry,Sweden,,,SWE,3,3,100.0,Registration ID (1),Identification Number (1),Passport (1),,,,,,,
+Y,idCountry,Switzerland,,,CHE,54,10,18.52,Registration Number (17),Tax ID No. (12),Passport (11),Identification Number (5),Company Number (3),Business Registration Number (2),C.R. No. (1),Registration ID (1),V.A.T. Number (1),Commercial Registry Number (1)
+Y,idCountry,Syria,,,SYR,68,9,13.24,Passport (31),National ID No. (16),Registration Number (8),Identification Number (6),Commercial Registry Number (3),Diplomatic Passport (1),Registration ID (1),Business Registration Number (1),National Foreign ID Number (1),
+Y,idCountry,Taiwan,,,TWN,16,7,43.75,Passport (6),Business Number (3),Business Registration Document # (2),National ID No. (2),Registration Number (1),Identification Number (1),Tax ID No. (1),,,
+Y,idCountry,Tajikistan,,,TJK,1,1,100.0,Passport (1),,,,,,,,,
+Y,idCountry,Tanzania,,,TZA,7,1,14.29,Passport (7),,,,,,,,,
+Y,idCountry,Thailand,,,THA,34,4,11.76,National ID No. (17),Passport (12),Registration ID (3),National Foreign ID Number (2),,,,,,
+Y,idCountry,The Gambia,,,GMB,1,1,100.0,Passport (1),,,,,,,,,
+Y,idCountry,Trinidad and Tobago,,,TTO,4,3,75.0,National ID No. (2),Passport (1),Identification Number (1),,,,,,,
+Y,idCountry,Tunisia,,,TUN,6,2,33.33,Passport (5),National ID No. (1),,,,,,,,
+Y,idCountry,Turkey,,,TUR,206,16,7.77,Registration Number (48),Passport (40),Istanbul Chamber of Comm. No. (26),Central Registration System Number (25),Tax ID No. (18),National ID No. (17),Identification Number (10),Turkish Identification Number (8),Chamber of Commerce Number (4),Registration ID (2)
+Y,idCountry,Uganda,,,UGA,4,3,75.0,National ID No. (2),Registration Number (1),Passport (1),,,,,,,
+Y,idCountry,Ukraine,,,UKR,81,9,11.11,Tax ID No. (35),Passport (14),Registration ID (9),National ID No. (9),Government Gazette Number (5),Identification Number (5),Registration Number (2),Company Number (1),Personal ID Card (1),
+Y,idCountry,United Arab Emirates,,,ARE,238,19,7.98,Registration Number (56),License (45),Economic Register Number (CBLS) (32),Business Registration Number (24),Identification Number (18),Commercial Registry Number (14),Dubai Chamber of Commerce Membership No. (8),National ID No. (7),Chamber of Commerce Number (7),C.R. No. (4)
+Y,idCountry,United Kingdom,,,GBR,92,14,15.22,Passport (34),Company Number (17),UK Company Number (13),Registration Number (7),National ID No. (7),Registration ID (3),Registered Charity No. (3),Identification Number (2),British National Overseas Passport (1),Commercial Registry Number (1)
+Y,idCountry,United States,,,USA,63,13,20.63,Tax ID No. (12),Business Registration Number (10),SSN (9),Business Registration Document # (7),Passport (5),Company Number (5),US FEIN (4),File Number (4),Immigration No. (2),Registration ID (2)
+Y,idCountry,Uruguay,,,URY,1,1,100.0,National ID No. (1),,,,,,,,,
+Y,idCountry,Uzbekistan,,,UZB,22,4,18.18,Passport (15),Tax ID No. (4),Registration Number (2),National ID No. (1),,,,,,
+Y,idCountry,Venezuela,,,VEN,257,8,3.11,Cedula No. (138),Passport (76),RIF # (25),National ID No. (9),Identification Number (5),Tax ID No. (2),Business Registration Document # (1),National Foreign ID Number (1),,
+Y,idCountry,Vietnam,,,VNM,5,4,80.0,Business Registration Number (2),Enterprise Number (1),Registration Number (1),Company Number (1),,,,,,
+Y,idCountry,"Virgin Islands, British",,,VGB,9,4,44.44,Public Registration Number (4),Company Number (3),Registration ID (1),Registration Number (1),,,,,,
+Y,idCountry,Yemen,,,YEM,32,5,15.62,Passport (18),National ID No. (6),Diplomatic Passport (4),Identification Number (3),Personal ID Card (1),,,,,
+Y,idCountry,Zambia,,,ZMB,2,1,50.0,Business Registration Number (2),,,,,,,,,
+Y,idCountry,Zimbabwe,,,ZWE,34,4,11.76,Passport (25),National ID No. (7),Registration Number (1),Business Number (1),,,,,,
+Y,idType,Additional Sanctions Information -,,,,1893,2,0.11,Subject to Secondary Sanctions (1704),Subject to Secondary Sanctions Pursuant to the Hizballah Financial Sanctions Regulations (189),,,,,,,,
+Y,idType,Afghan Money Service Provider License Number,,OTHER_ID_NUMBER,,2,2,100.0,044 (1),093 (1),,,,,,,,
+Y,idType,Aircraft Construction Number (also called L/N or S/N or F/N),,AIRCRAFT_CONSTRUCTION_NUM,,0,0,0,,,,,,,,,,
+Y,idType,Aircraft Manufacture Date,,,,0,0,0,,,,,,,,,,
+Y,idType,Aircraft Manufacturer's Serial Number (MSN),,AIRCRAFT_MFG_SERIAL_NUM,,0,0,0,,,,,,,,,,
+Y,idType,Aircraft Mode S Transponder Code,,,,0,0,0,,,,,,,,,,
+Y,idType,Aircraft Model,,,,0,0,0,,,,,,,,,,
+Y,idType,Aircraft Operator,,,,0,0,0,,,,,,,,,,
+Y,idType,Aircraft Serial Identification,,,,0,0,0,,,,,,,,,,
+Y,idType,Aircraft Tail Number,,AIRCRAFT_TAIL_NUM,,0,0,0,,,,,,,,,,
+Y,idType,BIK (RU),,OTHER_ID_NUMBER,,23,23,100.0,044030707 (1),044525187 (1),044525060 (1),044525219 (1),044525607 (1),044525745 (1),044583162 (1),044525059 (1),049805709 (1),043510101 (1)
+Y,idType,Birth Certificate Number,,,,24,24,100.0,365 (1),455 (1),6686 (1),7608 (1),4043 (1),1973 (1),11770 (1),2233 (1),32270 (1),9444 (1)
+Y,idType,Bosnian Personal ID No.,,NATIONAL_ID_NUMBER,,1,1,100.0,1005967953038 (1),,,,,,,,,
+Y,idType,Branch Unit Number,,OTHER_ID_NUMBER,,8,8,100.0,2030.515.945 (1),000034883819 (1),000026708302 (1),000026702959 (1),000026703254 (1),000027280888 (1),2052342727 (1),2093373727 (1),,
+Y,idType,British National Overseas Passport,,PASSPORT_NUMBER,,1,1,100.0,750200421 (1),,,,,,,,,
+Y,idType,Business Number,,NATIONAL_ID_NUMBER,,23,23,100.0,1160199932 (1),16111431 (1),13195014 (1),89402436 (1),DMCC-807753 (1),113129 (1),113667 (1),108160 (1),200114146 (1),3147216 (1)
+Y,idType,Business Registration Document #,,NATIONAL_ID_NUMBER,,30,30,100.0,F01000003035 (1),P9800004558 (1),P94000013372 (1),93000004034 (1),V16155 (1),UNP 101119568 (1),80074366 (1),829 (1),16316976 (1),12873346 (1)
+Y,idType,Business Registration Number,,NATIONAL_ID_NUMBER,,167,167,100.0,1037739709138 (1),229172 (1),312106037714354404 (1),0105551001856 (1),453542 (1),59784 (1),24467 (1),190617 (1),423264 (1),8953 (1)
+Y,idType,C.I.F.,,OTHER_ID_NUMBER,,2,2,100.0,B84214477 (1),B66732785 (1),,,,,,,,
+Y,idType,C.R. No.,,NATIONAL_ID_NUMBER,,70,70,100.0,CH-217.0.135.719-4 (1),66488 (1),79190 (1),478351540 (1),28094396 (1),HRB20555 (1),B62398060 (1),32035 (1),P-01876/19981106 (1),52060 (1)
+Y,idType,C.U.I.,,NATIONAL_ID_NUMBER,,13,13,100.0,1995739560513 (1),2891761150920 (1),1678215981801 (1),1646294590101 (1),1916038210506 (1),1798585561331 (1),1892644891331 (1),1613087591331 (1),1785205271331 (1),2639667390611 (1)
+Y,idType,C.U.I.P.,,NATIONAL_ID_NUMBER,,5,5,100.0,FOFS770822H09576414 (1),AOIR671020H1374898 (1),HEBR770204H30271467 (1),GODJ760122H24151162 (1),FOCA640326H14506669 (1),,,,,
+Y,idType,C.U.I.T.,,NATIONAL_ID_NUMBER,,7,7,100.0,30-68074603-2 (1),20200108664 (1),23206080469 (1),20185806864 (1),30715339176 (1),30712314156 (1),20-24498939-0 (1),,,
+Y,idType,C.U.R.P.,,NATIONAL_ID_NUMBER,,412,411,99.76,GURR730821HCLRMG01 (2),AIMM67125HCHRRG06 (1),AIMO681106HCHRRS01 (1),GAMR501027HSLXDG00 (1),AALH750218HBCLPC02 (1),SOGY500805MBCTLL15 (1),MACC690423HCHRSR08 (1),CAYM680202MCHRLR06 (1),CAIM680202MCHRLR08 (1),PECM660625HCHRSR07 (1)
+Y,idType,CAATSA Section 235 Information:,,,,34,7,20.59,BANKING TRANSACTIONS. Sec 235(a)(8) (7),FOREIGN EXCHANGE. Sec 235(a)(7) (7),BLOCKING PROPERTY AND INTERESTS IN PROPERTY. Sec 235(a)(9) (7),SANCTIONS ON PRINCIPAL EXECUTIVE OFFICERS. Sec 235(a)(12) (5),EXCLUSION OF CORPORATE OFFICERS. Sec 235(a)(11) (5),EXPORT SANCTIONS Sec. 235(a)(2) (2),BAN ON INVESTMENT IN EQUITY OR DEBT OF SANCTIONED PERSON. Sec 235(a)(10) (1),,,
+Y,idType,CNP (Personal Numerical Code),,,,1,1,100.0,7460301380011 (1),,,,,,,,,
+Y,idType,Cartilla de Servicio Militar Nacional,,OTHER_ID_NUMBER,,13,13,100.0,B4111940 (1),C-528381 (1),B4494067 (1),C2606947 (1),B7439509 (1),B-8193135 (1),607092 (1),C26300 (1),B9764183 (1),B7384371 (1)
+Y,idType,Cedula No.,,NATIONAL_ID_NUMBER,,463,463,100.0,6067015 (1),6068015 (1),6095803 (1),16215230 (1),16684736 (1),29503761 (1),16473543 (1),6160843 (1),1625525 (1),16209410 (1)
+Y,idType,Central Registration System Number,,NATIONAL_ID_NUMBER,,25,25,100.0,8143922500001 (1),389094978900001 (1),0148-0059-5910-0013 (1),0742-0233-1450-0012 (1),13003316464809 (1),0773-0337-4440-0013 (1),0869-0441-4320-0012 (1),0215-0245-8590-0012 (1),0069-0405-7030-0026 (1),0150-0522-0980-0013 (1)
+Y,idType,Certificate of Incorporation Number,,OTHER_ID_NUMBER,,8,8,100.0,784702 (1),330330 (1),766810 (1),006971 (1),006939 (1),1396649 (1),1184117 (1),SCCI/378/13 (1),,
+Y,idType,Chamber of Commerce Number,,OTHER_ID_NUMBER,,20,20,100.0,55389694 (1),66242010 (1),57244758 (1),57238812 (1),57239169 (1),57883149 (1),2014 B 24978 (1),11047591 (1),196434 (1),56868 (1)
+Y,idType,Chinese Commercial Code,,,,12,12,100.0,1728 4320 (1),5170 3057 1344 (1),1728 3444 2052 (1),3769 0948 5931 (1),1728 1696 (1),0443 1226 (1),0443 2814 2589 (1),0491 5050 5391 (1),1728 0344 1627 (1),7346 2556 0365 (1)
+Y,idType,Citizen's Card Number,,NATIONAL_ID_NUMBER,,7,7,100.0,211226197812154256 (1),372426197811220350 (1),210222198011096648 (1),210222198202016639 (1),371482195512120326 (1),372426195510220331 (1),421002197703250019 (1),,,
+Y,idType,Commercial Registry Number,,NATIONAL_ID_NUMBER,,121,121,100.0,HRB96201 (1),513174466 (1),1901453 (1),591610 (1),2001929 (1),2004609 (1),1801374 (1),8-0788 (1),1144902 (1),OC390985 (1)
+Y,idType,Company Number,,NATIONAL_ID_NUMBER,,149,149,100.0,01074897 (1),LL08318 (1),394678 (1),94593 (1),89681 (1),50461890 (1),29025576 (1),80386621 (1),792313 (1),05527424 (1)
+Y,idType,Credencial electoral,,OTHER_ID_NUMBER,,15,15,100.0,101924629544 (1),088455751391 (1),103624690069 (1),073855815496 (1),SNMRJL66091609H501 (1),AGBSMR59033015H800 (1),156593459 (1),LLGZJR57062088H900 (1),RDALSC77091210H700 (1),FLFLVC57111025H101 (1)
+Y,idType,D-U-N-S Number,,DUNS_NUMBER,,35,35,100.0,542957624 (1),52-024-2307 (1),56-556-9269 (1),52-023-9744 (1),53-400-0843 (1),52-024-7665 (1),52-024-2258 (1),52-028-0154 (1),53-499-4520 (1),36-025-1842 (1)
+Y,idType,D.N.I.,,NATIONAL_ID_NUMBER,,39,39,100.0,78.865.882 (1),78.865.693 (1),15.390.353 (1),15.954.596 (1),15.927.207 (1),15.394.062 (1),20.172.692 (1),44.556.097 (1),16.282.556 (1),16.255.819 (1)
+Y,idType,Digital Currency Address - ARB,,,,1,1,100.0,0x4f47bc496083c727c5fbe3ce9cdf2b0f6496270c (1),,,,,,,,,
+Y,idType,Digital Currency Address - BCH,,,,7,7,100.0,18M8bJWMzWHDBMxoLqjHHAffdRy4SrzkfB (1),qpf2cphc5dkuclkqur7lhj2yuqq9pk3hmukle77vhq (1),qzjv8hrdvz6edu4gkzpnd4w6jc7zf296g5e9kkq4lx (1),qq3vlashthktqpeppuv7trmw070e3mydgq63zq348v (1),qpusmp64rajses77x95g9ah825mtyyv74smwwkxhx3 (1),qqyuc9s700plhzr6awzru7g5z2d2p906uyrm6ht0r0 (1),qz9f2vz3033sg5vc5mf7m7xshmj0jugy4ummf05jk8 (1),,,
+Y,idType,Digital Currency Address - BSC,,,,1,1,100.0,0x4f47bc496083c727c5fbe3ce9cdf2b0f6496270c (1),,,,,,,,,
+Y,idType,Digital Currency Address - BSV,,,,1,1,100.0,12sjrrhoFEsedNRhtgwvvRqjFTh8fZTDX9 (1),,,,,,,,,
+Y,idType,Digital Currency Address - BTG,,,,1,1,100.0,GPwg61XoHqQPNmAucFACuQ5H9sGCDv9TpS (1),,,,,,,,,
+Y,idType,Digital Currency Address - DASH,,,,3,3,100.0,XnPFsRWTaSgiVauosEwQ6dEitGYXgwznz2 (1),Xs3vzQmNvAxRa3Xo8XzQqUb3BMgb9EogF4 (1),XyARKoupuArYtToA2S6yMdnoquDCDaBsaT (1),,,,,,,
+Y,idType,Digital Currency Address - ETC,,,,1,1,100.0,0xd882cfc20f52f2599d84b8e8d58c7fb62cfe344b (1),,,,,,,,,
+Y,idType,Digital Currency Address - ETH,,,,147,147,100.0,0xa0e1c89Ef1a489c9C7dE96311eD5Ce5D32c20E4B (1),0x098B716B8Aaf21512996dC57EB0615e2383E2f96 (1),0x3Cffd56B47B7b41c56258D9C7731ABaDc360E073 (1),0x53b6936513e738f44FB50d2b9476730C0Ab3Bfc1 (1),0x35fB6f6DB4fb05e6A4cE86f2C93691425626d4b1 (1),0xF7B31119c2682c88d88D455dBb9d5932c65Cf1bE (1),0x3e37627dEAA754090fBFbb8bd226c1CE66D255e9 (1),0x08723392Ed15743cc38513C4925f5e6be5c17243 (1),0x7F367cC41522cE07553e823bf3be79A889DEbe1B (1),0xd882cfc20f52f2599d84b8e8d58c7fb62cfe344b (1)
+Y,idType,Digital Currency Address - LTC,,,,9,8,88.89,LeKvNdNEzgQkzVVnRdV3fAu2DSF1nLsNw6 (2),LaizKtS5DUhPuP1nTQcc83MS7HwK6vk85z (1),LNwgtMxcKUQ51dw7bQL1yPQjBVZh6QEqsd (1),Leo3j36nn1JcsUQruytQhFUdCdCH5YHMR3 (1),LWnbjLYUfqeokfbWM4FcU7uk2FP2DSxuWS (1),LaYUy1DGfVSuSF5KbPhbLrm8kRotqiwUJn (1),LQAhYwwK5AR1JQiQPr7vu8Pu4b6qcxxvNB (1),LgwmgYnraU2uBWHVFUDgAmFCPYj5Yw8C9L (1),,
+Y,idType,Digital Currency Address - TRX,,,,3,3,100.0,TMStbg5fgb4uTV7fK1gEYF9hKAzP3siPsG (1),TTKnV2S1295UrPr7N67Tp9ykNL7xX2Z4Uj (1),TRBACioxdrdsYEZHvJWiUDZcMdBPpEe5Ub (1),,,,,,,
+Y,idType,Digital Currency Address - USDC,,,,2,2,100.0,0xb6f5ec1a0a9cd1526536d3f0426c429529471f40 (1),0x983a81ca6FB1e441266D2FbcB7D8E530AC2E05A2 (1),,,,,,,,
+Y,idType,Digital Currency Address - USDT,,,,17,17,100.0,0x2f389ce8bd8ff92de3402ffce4691d17fc4f6535 (1),0x19aa5fe80d33a56d56c78e82ea5e50e5d80b4dff (1),1KUUJPkyDhamZXgpsyXqNGc3x1QPXtdhgz (1),1CF46Rfbp97absrs7zb7dFfZS6qBXUm9EP (1),1LrxsRd7zNuxPJcL5rttnoeJFy1y4AffYY (1),1Df883c96LVauVsx9FEgnsourD8DELwCUQ (1),16iWn2J1McqjToYLHSsAyS6En3QA8YQ91H (1),3LtcaPbCj87CwJHnRX3vh7c2y9RZQqeSy8 (1),0xfec8a60023265364d066a1212fde3930f6ae8da7 (1),3E6ZCKRrsdPc35chA9Eftp1h3DLW18NFNV (1)
+Y,idType,Digital Currency Address - XBT,,,,376,374,99.47,3F6bbvS1krsc1qR8FsbTDfYQyvkMm3QvmR (2),1H939dom7i4WDLCKyGbXUp3fs9CSTNRzgL (2),12QtD5BFwRsdNsAZY76UVE1xyCGNTojH9h (1),1Kuf2Rd8mDyAViwBozGTNYnvWL8uYFrkVo (1),13f59kUM5FU8MfTG7DCEugYarDhSD7XCoC (1),1P3ZfGFLezzYGg9k5SVzQmnjyh7nrUmF2y (1),1EpMiZkQVekM5ij12nMiEwttFPcDK9XhX6 (1),1JREJdZupiFhE7ZzQPtASuMCvvpXC7wRsC (1),149w62rY42aZBox8fGcmqNsXUzSStKeq8C (1),1AjZPMsnmpdK2Rv9KQNfMurTXinscVro9V (1)
+Y,idType,Digital Currency Address - XMR,,,,3,3,100.0,5be5543ff73456ab9f2d207887e2af87322c651ea1a873c5b25b7ffae456c320 (1),884Bz8UH63aYsjVdkfWfScRYWZGGNbjFL7pztqvWNSrtYT4reFSwyvkCj9KEGUtheHhhMUj87ciTBFyzoesrMJ4L1FvSoxL (1),49HqitRzdnhYjgTEAhgGpCfsjdTeMbUTU6cyR4JV1R7k2Eej9rGT8JpFiYDa4tZM6RZiFrHmMzgSrhHEqpDYKBe5B2ufNsL (1),,,,,,,
+Y,idType,Digital Currency Address - XRP,,,,1,1,100.0,rnXyVQzgxZe7TR1EPzTkGj2jxH4LMJYh66 (1),,,,,,,,,
+Y,idType,Digital Currency Address - XVG,,,,1,1,100.0,DFFJhnQNZf8rf67tYnesPu7MuGUpYtzv7Z (1),,,,,,,,,
+Y,idType,Digital Currency Address - ZEC,,,,3,3,100.0,t1g7wowvQ8gn2v8jrU1biyJ26sieNqNsBJy (1),t1WSKwCDL1QYRRUrCCknEs5tDLhtGVYu9KM (1),t1MMXtBrSp1XG38Lx9cePcNUCJj5vdWfUWL (1),,,,,,,
+Y,idType,Diplomatic Passport,,PASSPORT_NUMBER,,21,21,100.0,008827 (1),A0002987 (1),A009829 (1),A011892 (1),000021986 (1),00085498 (1),4138 (1),A921579 (1),Laissez-Passer 02154 (1),D000080 (1)
+Y,idType,Driver's License No.,,DRIVERS_LICENSE_NUMBER,,26,26,100.0,180839 (1),210082884 (1),76001000150900 (1),11550 (1),J17001W6Z12 (1),724097 (1),1-1-22-07-00030905-3 (1),210057967 (1),NO4435810 (1),2308565 (1)
+Y,idType,Dubai Chamber of Commerce Membership No.,,OTHER_ID_NUMBER,,11,11,100.0,42988 (1),172133 (1),123076 (1),116340 (1),70103 (1),175229 (1),289666 (1),276774 (1),1267441 (1),1612390 (1)
+Y,idType,Economic Register Number (CBLS),,OTHER_ID_NUMBER,,32,32,100.0,11582964 (1),11502399 (1),11600198 (1),11723718 (1),11533152 (1),11578779 (1),11583135 (1),11610921 (1),11859002 (1),11668849 (1)
+Y,idType,Effective Date (EO 14024 Directive 2):,,,,25,1,4.0,26 Mar 2022 (25),,,,,,,,,
+Y,idType,Effective Date (EO 14024 Directive 3):,,,,4,1,25.0,26 Mar 2022 (4),,,,,,,,,
+Y,idType,Electoral Registry No.,,OTHER_ID_NUMBER,,21,21,100.0,07385114 (1),CZSLBL54091825M200 (1),MZGSAR46070425H400 (1),PTPNJR74042325H500 (1),AGSNBL58030702M801 (1),AGSNCL69010402M000 (1),OIOJMR60061425H900 (1),RZZVAL62051010M200 (1),ZZUREP47080125H900 (1),CSSNJR71010628H801 (1)
+Y,idType,Email Address,,EMAIL_ADDRESS,,270,261,96.67,rasoul.jalili@peykasa.ir (2),general@sovfracht.ru (2),goldenchemical@live.com (2),sales@globalrc.net (2),3507656950@qq.com (2),admin@sinocpa.com (2),yasonne@hotmail.com (2),guoruiguang2016@126.com (2),414192810@qq.com (2),dam.d.free@net.sy (1)
+Y,idType,Enterprise Number,,OTHER_ID_NUMBER,,17,17,100.0,0430.033.662 (1),0443680473 (1),0473365047 (1),0200289195 (1),M1966001245 (1),961733 (1),0892529761 (1),0478862274 (1),0806408906 (1),0821135682 (1)
+Y,idType,Equity Ticker,,,,2,2,100.0,PME US (1),ROSB (1),,,,,,,,
+Y,idType,Executive Order 13662 Directive Determination -,,,,61,4,6.56,Subject to Directive 1 (46),Subject to Directive 3 (10),Subject to Directive 4 (3),Subject to Directive 2 (2),,,,,,
+Y,idType,Executive Order 13846 information:,,,,351,8,2.28,BLOCKING PROPERTY AND INTERESTS IN PROPERTY.  Sec. 5(a)(iv) (67),FOREIGN EXCHANGE.  Sec. 5(a)(ii) (61),BANKING TRANSACTIONS.  Sec. 5(a)(iii) (61),BAN ON INVESTMENT IN EQUITY OR DEBT OF SANCTIONED PERSON.  Sec. 5(a)(v) (46),IMPORT SANCTIONS.  Sec. 5(a)(vi) (41),LOANS FROM UNITED STATES FINANCIAL INSTITUTIONS.  Sec. 5(a)(i) (37),SANCTIONS ON PRINCIPAL EXECUTIVE OFFICERS. Sec. 5(a)(vii) (28),EXCLUSION OF CORPORATE OFFICERS.  Sec. 4(e) (10),,
+Y,idType,Executive Order 14024 Directive Information,,,,4,1,25.0,"Subject to Directive 3 - All transactions in, provision of financing for, and other dealings in new debt of longer than 14 days maturity or new equity where such new debt or new equity is issued on or after the 'Effective Date (EO 14024 Directive)' associated with this name are prohibited. (4)",,,,,,,,,
+Y,idType,Executive Order 14024 Directive Information -,,,,28,1,3.57,"For more information on directives, please visit the following link: https://home.treasury.gov/policy-issues/financial-sanctions/sanctions-programs-and-country-information/russian-harmful-foreign-activities-sanctions#directives (28)",,,,,,,,,
+Y,idType,File Number,,OTHER_ID_NUMBER,,4,4,100.0,5736292 (1),6096108 (1),7136946 (Delaware) (1),7136973 (Delaware) (1),,,,,,
+Y,idType,Fiscal Code,,OTHER_ID_NUMBER,,1,1,100.0,9896460 (1),,,,,,,,,
+Y,idType,Folio Mercantil No.,,OTHER_ID_NUMBER,,137,136,99.27,65256 (2),343997 (1),324168 (1),310801 (1),345497 (1),325909 (1),10987-1 (1),24808 (1),17103 (1),40246 (1)
+Y,idType,Former Vessel Flag,,,,0,0,0,,,,,,,,,,
+Y,idType,Gender,,GENDER,,3879,2,0.05,Male (3386),Female (493),,,,,,,,
+Y,idType,Government Gazette Number,,OTHER_ID_NUMBER,,290,288,99.31,772701001 (2),92660626 (2),09804148 (1),44323193 (1),09610355 (1),56657657 (1),72426791 (1),07515747 (1),11593871 (1),07501739 (1)
+Y,idType,I.F.E.,,OTHER_ID_NUMBER,,12,12,100.0,05116040222575 (1),0539041296164 (1),0516041106955 (1),RLAVJS88110125H400 (1),OSCRAN58082016H800 (1),TPCSAL79031814H401 (1),3087029297960 (1),069582506439 (1),AVRCMN60021125M800 (1),RLAVLS81031125H800 (1)
+Y,idType,IFCA Determination -,,,,5,3,60.0,Involved in the Shipping Sector (3),Involved in Energy Sector (1),Port Operator (1),,,,,,,
+Y,idType,ISIN,,,,4,4,100.0,KYG7114V1023 (1),RU0007796926 (1),RU000A0HHK26 (1),TRETGYO00023 (1),,,,,,
+Y,idType,Identification Number,,NATIONAL_ID_NUMBER,,281,280,99.64,3QL4V4.99999.SL.643 (2),AO 2879097 (1),2.194.975 (1),2.194.575 (1),2.121.948 (1),159014 (1),1041 002019 56 (1),35200-5407888-5 (1),B9457110 (1),092520304 (1)
+Y,idType,Immigration No.,,OTHER_ID_NUMBER,,2,2,100.0,A7800002 Border Crossing (1),A38839964 (1),,,,,,,,
+Y,idType,Istanbul Chamber of Comm. No.,,OTHER_ID_NUMBER,,26,26,100.0,537070 (1),985486 (1),475133 (1),429724 (1),807703 (1),685022 (1),801971 (1),593158 (1),593351 (1),443806 (1)
+Y,idType,Italian Fiscal Code,,OTHER_ID_NUMBER,,16,16,100.0,DAOMMD74T11Z352Z (1),BCHMHT69R13Z352T (1),SSYBLK62T26Z336L (1),SSDSBN68B10Z352F (1),BNSDLA70L14Z352B (1),TLLLHR69C26Z352G (1),WDDHBB70H10Z352O (1),HDDFTH63H28Z352V (1),DRRKLB67L22Z352S (1),DRRKML67L22Z352Q (1)
+Y,idType,Kenyan ID No.,,NATIONAL_ID_NUMBER,,6,6,100.0,12773667 (1),23446085 (1),25142129 (1),22536936 (1),30760317 (1),22645786 (1),,,,
+Y,idType,LE Number,,NATIONAL_ID_NUMBER,,7,7,100.0,07552116 (1),07541863 (1),07607833 (1),07617157 (1),07942932 (1),07609623 (1),07553590 (1),,,
+Y,idType,Legal Entity Number,,LEI_NUMBER,,70,70,100.0,253400V1H6ART1UQ0N98 (1),253400HA6URWT39X2982 (1),25340038P8SYW80B9W34 (1),851683897 (1),856458879 (1),852499097 (1),852496369 (1),852496527 (1),852777978 (1),485100GBI2SE0KIX8T70 (1)
+Y,idType,License,,OTHER_ID_NUMBER,,53,52,98.11,533917 (2),2377 (1),1000 (1),535436 (1),717783 (1),1249 (1),3527 (1),4541992 (1),611462 (1),668722 (1)
+Y,idType,Listing Date (EO 14024 Directive 2):,,,,25,1,4.0,24 Feb 2022 (25),,,,,,,,,
+Y,idType,Listing Date (EO 14024 Directive 3):,,,,4,1,25.0,24 Feb 2022 (4),,,,,,,,,
+Y,idType,MICEX Code,,,,1,1,100.0,MSTT (1),,,,,,,,,
+Y,idType,MMSI,,MMSI_NUMBER_NUMBER,,0,0,0,,,,,,,,,,
+Y,idType,MSB Registration Number,,MSB_LICENSE_NUMBER,,1,1,100.0,M18867067 (1),,,,,,,,,
+Y,idType,Matricula Mercantil No,,OTHER_ID_NUMBER,,46,44,95.65,398330 (2),0081931 (2),48131-1 (1),01302280 (1),387183-1 (1),1776209 (1),00118075 (1),1419756 (1),00118073 (1),00029517 (1)
+Y,idType,Moroccan Personal ID No.,,NATIONAL_ID_NUMBER,,1,1,100.0,E 427689 (1),,,,,,,,,
+Y,idType,N.I.E.,,OTHER_ID_NUMBER,,1,1,100.0,X-1552120-B (1),,,,,,,,,
+Y,idType,N.I.F.,,OTHER_ID_NUMBER,,1,1,100.0,B72884711 (1),,,,,,,,,
+Y,idType,NIT #,,TAX_ID_NUMBER,,251,248,98.8,6070026706 (2),7142099 (2),844191-K (2),800018928-0 (1),800117780-2 (1),891412986-8 (1),800076369-0 (1),800032413-8 (1),16215230-1 (1),800021615-1 (1)
+Y,idType,National Foreign ID Number,,NATIONAL_ID_NUMBER,,18,18,100.0,RNE: W031645-8 (1),4203016171 (1),350991386390 (1),5570700010951 (1),264521 (1),22075502 (1),264619 (1),254291 (1),210603197112150023 (1),210602197107153012 (1)
+Y,idType,National ID No.,,NATIONAL_ID_NUMBER,,1010,1009,99.9,14006467155 (2),216040 (1),660000 73767 (1),3603251708570001 (1),1910958130007 (1),JMB 0105954171511 (1),050 796 318 3954 (1),601964100083 (1),1608600001 (1),D489833(9) (1)
+Y,idType,Nationality of Registration,,,,7,3,42.86,"Korea, North (5)",China (1),"Virgin Islands, British (1)",,,,,,,
+Y,idType,Numero Unico de Identificacao Tributaria (NUIT),,OTHER_ID_NUMBER,,2,1,50.0,300000436 (2),,,,,,,,,
+Y,idType,Numero de Identidad,,NATIONAL_ID_NUMBER,,8,8,100.0,0103-1975-00009 (1),0209-1972-00282 (1),0209-1977-00375 (1),0209-1985-02347 (1),0209-1949-00019 (1),1517-1950-00095 (1),0209-1976-00026 (1),0501-1967-02094 (1),,
+Y,idType,Organization Code,,,,3,3,100.0,792470309 (1),259861969 (1),791301394 (1),,,,,,,
+Y,idType,Organization Established Date,,,,1485,1203,81.01,1993 (11),2018 (11),2017 (10),1994 (9),2012 (9),2010 (9),2016 (8),2007 (8),2002 (8),2008 (8)
+Y,idType,Organization Type:,,,,418,92,22.01,Activities of holding companies (46),Real estate activities with own or leased property (32),Other information technology and computer service activities (23),Real estate activities on a fee or contract basis (22),Non-specialized wholesale trade (22),Construction of buildings (18),"Other financial service activities, except insurance and pension funding activities, n.e.c. (17)",Wholesale of other machinery and equipment (14),Wholesale of electronic and telecommunications equipment and parts (12),Mining of other non-ferrous metal ores (11)
+Y,idType,Other Vessel Call Sign,,CALL_SIGN,,0,0,0,,,,,,,,,,
+Y,idType,Other Vessel Flag,,,,0,0,0,,,,,,,,,,
+Y,idType,Other Vessel Type,,,,0,0,0,,,,,,,,,,
+Y,idType,PEESA Information:,,,,0,0,0,,,,,,,,,,
+Y,idType,Paraguayan tax identification number,,TAX_ID_NUMBER,,3,3,100.0,BAHA 6301000 (1),80105176-2 (1),80112472-7 (1),,,,,,,
+Y,idType,Passport,,PASSPORT_NUMBER,,2008,2008,100.0,19820215 (1),1084010 (1),304555 (1),042833 (1),92/664 (1),6067015 (1),T321642 (1),10545599 (1),77588 (1),265 216 (1)
+Y,idType,Permit Number,,OTHER_ID_NUMBER,,12,12,100.0,IG0641T102018 (1),IG1107T102019 (1),IG0218T102018 (1),IG0724T102018 (1),IG0195S42018 (1),IG-0069/T10/2015 (1),IG-0214/T10/2017 (1),T10/F/92/0289 (1),IG-0913/T10/2014 (1),TS-0112/T10/2017 (1)
+Y,idType,Personal ID Card,,NATIONAL_ID_NUMBER,,18,18,100.0,7020783883 (1),A00710804 (1),096574S (1),72.467.565 (1),00246412491303975500493 (1),002464124 (1),1987853 (1),25463401784 (1),58786069032 (1),AK 8136255 (1)
+Y,idType,Phone Number,,PHONE_NUMBER,,69,62,89.86,8615815351839 (4),867523323959 (2),8613188782935 (2),8613273412322 (2),8615175978802 (2),982188526303 (1),9821227700019 (1),982188526300 (1),982188526301 (1),982188526302 (1)
+Y,idType,Pilot License Number,,OTHER_ID_NUMBER,,2,2,100.0,PL00825 (1),2326384 (1),,,,,,,,
+Y,idType,Previous Aircraft Tail Number,,AIRCRAFT_TAIL_NUM,,0,0,0,,,,,,,,,,
+Y,idType,Public Registration Number,,NATIONAL_ID_NUMBER,,14,14,100.0,"467323, Doc. 694710 (1)",C210706 (1),1021801434380 (1),99450 (1),512253352 (1),513686220 (1),515000354 (1),1577164 (1),1577165 (1),1041202 (1)
+Y,idType,Public Security and Immigration No.,,OTHER_ID_NUMBER,,1,1,100.0,98.805 (1),,,,,,,,,
+Y,idType,R.F.C.,,TAX_ID_NUMBER,,335,334,99.7,NICR-461006-T36 (2),DIB-771110-HQ1 (1),FVS-870610-LX3 (1),AUAM-530929 (1),AUGM-501102-PM3 (1),AEL-980417-S51 (1),GIGA-520122 (1),MOML-530526-ED4 (1),AIMM-671215-387 (1),AIMO-681106-9F7 (1)
+Y,idType,RFC,,TAX_ID_NUMBER,,21,21,100.0,CAVP-590612-AD1 (1),SAEA740214 (1),DID100927249 (1),CVL090120UT2 (1),GCR990628KR9 (1),REMF671011QH1 (1),SES-010905-VE6 (1),FELJ691014AV2 (1),CASA-730717-664 (1),CASL-780317-9M2 (1)
+Y,idType,RIF #,,OTHER_ID_NUMBER,,25,25,100.0,J-31136071-9 (1),J-00317392-4 (1),J-29620174-9 (1),J-31482089-3 (1),J-40068226-6 (1),J-31103570-2 (1),J-29766946-9 (1),J-31153379-6 (1),J-29469218-4 (1),J-31242224-6 (1)
+Y,idType,RTN,,OTHER_ID_NUMBER,,6,6,100.0,05019005483678 (1),05019007109210 (1),08019011419066 (1),08019009234360 (1),08019011356332 (1),823410101 (1),,,,
+Y,idType,RUC #,,TAX_ID_NUMBER,,123,122,99.19,155608664-2-2015 (2),20108363101 (1),20423916541 (1),20458382779 (1),25544701403775 (1),2120851397079 (1),2120741397076 (1),1791813359001 (1),1791315820001 (1),1791843436001 (1)
+Y,idType,Refugee ID Card,,OTHER_ID_NUMBER,,3,3,100.0,A88000043 (1),7402016297260 (1),PR0131118 (1),,,,,,,
+Y,idType,Registered Charity No.,,OTHER_ID_NUMBER,,9,9,100.0,1040094 (1),4636613 (1),05059698 (1),05258730 (1),1083469 (1),1455/99 (1),1155/99 (1),2150/5/4129 (1),749/5/4129 (1),
+Y,idType,Registration Country,,,,3,3,100.0,Burma (1),Iran (1),China (1),,,,,,,
+Y,idType,Registration ID,,NATIONAL_ID_NUMBER,,237,236,99.58,503586 (2),14063277 (1),27134614 (1),2720485 (1),17317105 (1),17307746 (1),3713110 (1),0179427 (1),200302847123 (1),50706 (1)
+Y,idType,Registration Number,,NATIONAL_ID_NUMBER,,1829,1826,99.84,5067847016782 (2),1047401500046 (2),1114345026784 (2),26740 (1),02696754 (1),341189 (1),329465 (1),136434 (1),252925 (1),6388 (1)
+Y,idType,Residency Number,,OTHER_ID_NUMBER,,12,12,100.0,117000439417 (1),2054275397 (1),2168561849 (1),0434529 (1),62270869 (1),784-1973-1617539-3 (1),270010174266 (1),310104197905203618 (1),332623197504107459 (1),114078810 (1)
+Y,idType,Romanian C.R.,,OTHER_ID_NUMBER,,3,3,100.0,J23/242/2004 (1),31672834 (1),J40/6457/2013 (1),,,,,,,
+Y,idType,Romanian Permanent Resident,,NATIONAL_ID_NUMBER,,1,1,100.0,CAN 0125477 (1),,,,,,,,,
+Y,idType,Romanian Tax Registration,,TAX_ID_NUMBER,,1,1,100.0,14637977 (1),,,,,,,,,
+Y,idType,SRE Permit No.,,OTHER_ID_NUMBER,,4,4,100.0,1909004 (1),A201611021236510536 (1),A201703091732456026 (1),A201611021437031501 (1),,,,,,
+Y,idType,SSN,,SSN_NUMBER,,11,11,100.0,523-33-8386 (1),589-17-6824 (1),156-92-9858 (1),548-91-5411 (1),550-63-9593 (1),592-29-5509 (1),561-77-9011 (1),33-3208848-3 (1),601-62-3570 (1),423-31-3021 (1)
+Y,idType,SWIFT/BIC,,,,151,151,100.0,HAVIGB2L (1),HNRBBY2X (1),KDBKKPPY (1),BOELKPPY (1),CMSYSYDA (1),SYLCLBBE (1),REBSSYDA (1),SIIBSYDA (1),BEGNIRTH (1),BKBPIRTH (1)
+Y,idType,Seafarer's Identification Document,,OTHER_ID_NUMBER,,1,1,100.0,MUM 85917 (1),,,,,,,,,
+Y,idType,Secondary sanctions risk:,,,,1544,5,0.32,"Ukraine-/Russia-Related Sanctions Regulations, 31 CFR 589.201 and/or 589.209 (506)","North Korea Sanctions Regulations, sections 510.201 and 510.210 (454)","section 1(b) of Executive Order 13224, as amended by Executive Order 13886 (392)","Ukraine-/Russia-Related Sanctions Regulations, 31 CFR 589.201 (153)",pursuant to the Hong Kong Autonomy Act of 2020 - Public Law 116-149 (39),,,,,
+Y,idType,Serial No.,,,,1,1,100.0,201735161 (1),,,,,,,,,
+Y,idType,Stateless Person ID Card,,NATIONAL_ID_NUMBER,,1,1,100.0,CC00200261 (1),,,,,,,,,
+Y,idType,Stateless Person Passport,,PASSPORT_NUMBER,,1,1,100.0,C000375 (1),,,,,,,,,
+Y,idType,Target Type,,,,234,8,3.42,Financial Institution (68),Government Entity (52),State-Owned Enterprise (51),Private Company (47),Criminal Organization (6),Unrecognized Government Entity (4),Charity or Nonprofit Organization (4),Public Company (2),,
+Y,idType,Tax ID No.,,TAX_ID_NUMBER,,1956,1948,99.59,7750004150 (2),2902060361 (2),1718002246 (2),9709058222 (2),9715263396 (2),4345309407 (2),7445024175 (2),7719019691 (2),AABA 670850 Y (1),100036386 (1)
+Y,idType,Tazkira National ID Card,,NATIONAL_ID_NUMBER,,3,3,100.0,932995 (1),283528 (1),128086 (1),,,,,,,
+Y,idType,Tourism License No.,,OTHER_ID_NUMBER,,1,1,100.0,585026 (1),,,,,,,,,
+Y,idType,Trade License No.,,OTHER_ID_NUMBER,,73,73,100.0,683633 (1),626883 (1),1037739620390 (1),C 50905 (1),C 17918 (1),C 19766 (1),41992 (1),C 73647 (1),C 44063 (1),C 38094 (1)
+Y,idType,Trademark number,,OTHER_ID_NUMBER,,1,1,100.0,38266997 (1),,,,,,,,,
+Y,idType,Transactions Prohibited For Persons Owned or Controlled By U.S. Financial Institutions:,,,,454,1,0.22,North Korea Sanctions Regulations section 510.214 (454),,,,,,,,,
+Y,idType,Travel Document Number,,OTHER_ID_NUMBER,,6,6,100.0,A0020375 (1),A0144378 (1),A0139243 (1),A0092301 (1),A0141062 (1),A0003900 (1),,,,
+Y,idType,Turkish Identification Number,,NATIONAL_ID_NUMBER,,8,8,100.0,10298480866 (1),23860719950 (1),18538165962 (1),15673320164 (1),12203628318 (1),37435275130 (1),99148469954 (1),68941120966 (1),,
+Y,idType,UAE Identification,,NATIONAL_ID_NUMBER,,1,1,100.0,784-1968-9720837-5 (1),,,,,,,,,
+Y,idType,UK Company Number,,NATIONAL_ID_NUMBER,,14,14,100.0,01126618 (1),03834450 (1),02647333 (1),01223433 (1),03503060 (1),01517853 (1),01573317 (1),01019769 (1),02772297 (1),02600121 (1)
+Y,idType,UN/LOCODE,,,,5,5,100.0,UA KEH (1),UA YAL (1),UA ZKA (1),UA FEO (1),UA SVP (1),,,,,
+Y,idType,US FEIN,,TAX_ID_NUMBER,,12,12,100.0,95-4227517 (1),36-3804626 (1),36-3823186 (1),CH-217-0-431-423-3 (1),55-2197267 (1),65-0842701 (1),65-0467983 (1),65-0389435 (1),65-0315268 (1),000920912 (1)
+Y,idType,Unified Social Credit Code (USCC),,OTHER_ID_NUMBER,,54,54,100.0,9113100033607322XK (1),91110117663725176G (1),91222401MA0Y31E659 (1),91310115MA1K4DLAXM (1),91310115MA1K41CK14 (1),9111000010000106X1 (1),914102007425224065 (1),913101040936933514 (1),91130104MA07T43608 (1),91130104MA09YL9T2W (1)
+Y,idType,United Social Credit Code Certificate (USCCC),,OTHER_ID_NUMBER,,7,7,100.0,91420112711981060J (1),914101006905518610 (1),91320507582255256P (1),91310000MA1K30UQ75 (1),913703007915042556 (1),91210200241830857Q (1),91210244759941797W (1),,,
+Y,idType,V.A.T. Number,,TAX_ID_NUMBER,,103,103,100.0,"BE 454,419,759 (1)",Goztepe V.D. 823 026 0248 (1),0430.033.662 (1),9102157783 (1),9111000450 (1),MT20084637 (1),MT11366525 (1),MT14324921 (1),MT23058705 (1),MT18975718 (1)
+Y,idType,Vessel Registration Identification,,IMO_NUMBER,,9,9,100.0,IMO 5878589 (1),IMO 4199470 (1),IMO 5817786 (1),IMO 5647684 (1),IMO 1701459 (1),IMO 1267131 (1),IMO 5878575 (1),IMO 1991835 (1),IMO 5057119 (1),
+Y,idType,Vessel Year of Build,,,,0,0,0,,,,,,,,,,
+Y,idType,VisaNumberID,,OTHER_ID_NUMBER,,5,5,100.0,2024702 (1),GDL000506209 (1),87810564 (1),F0962973 (1),525867504 (1),,,,,
+Y,idType,Website,,WEBSITE_ADDRESS,,854,843,98.71,http://nitcshipping.com (4),www.grupoarosfran.net (2),www.mebank.ir (2),http://mriyaresort.com (2),www.globalrc.net (2),www.rdif.ru (2),www.investinrussia.com (2),www.yolimachine.com (2),www.tdpmolds.com (2),www.havanaintbank.co.uk (1)

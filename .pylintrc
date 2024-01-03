@@ -20,6 +20,7 @@ disable=
     unidiomatic-typecheck,
     unspecified-encoding,
     unused-variable,
+    used-before-assignment,
     useless-return,
     using-constant-test,
 good-names=
