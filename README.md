@@ -28,8 +28,8 @@ optional arguments:
 
 1. [Prerequisites](#prerequisites)
 1. [Installation](#installation)
-1. [Configuring Senzing](#configuring-senzing)
 1. [Running the ofac_mapper mapper](#running-the-ofac_mapper-mapper)
+1. [Configuring Senzing](#configuring-senzing)
 1. [Loading into Senzing](#loading-into-senzing)
 1. [Optional ini file parameter](#optional-ini-file-parameter)
 
@@ -50,20 +50,6 @@ Place the the following files on a directory of your choice ...
 New idTypes will need to be mapped to national_id, other_id, etc.   New idCountries will need to be mapped to their 3 character iso equivalent.   A good
 way to detect new codes is to run the ofac_mapper against the latest file and then check the ofac_codes.csv for any codes that have not been reviewed. Once you review and update them, run the mapper a second time pick up your updates.
 
-### Configuring Senzing
-
-*Note:* This only needs to be performed one time! In fact you may want to add these configuration updates to a master configuration file for all your data sources.
-
-From your /<project directory>/g2/python directory ...
-
-```console
-python3 G2ConfigTool.py <path-to-file>/ofac_config_updates.g2c
-```
-
-This will step you through the process of adding the data sources, features, attributes and other settings needed to load this watch list data into Senzing. After each command you will see a status message saying "success" or "already exists".  For instance, if you run the script twice, the second time through they will all say "already exists" which is OK.
-
-*WARNING:* The are a few commented out optional settings described in the configuration file as they affect performance and quality. Only use them if you understand and are OK with the effects.
-
 ### Running the ofac_mapper mapper
 
 First, download the latest sdn.xml file from
@@ -76,12 +62,26 @@ Second, run the mapper.  Typical usage:
 python ofac_mapper.py -i /<path-to-file>/sdn-yyyy-mm-dd.xml -o /<path-to-file>/sdn-yyyy-mm-dd.json -l mapping_stats.json
 ```
 
-
 *Note* The mapping satistics should be reviewed occasionally to determine if there are other values that can be mapped to new features.  Check the UNKNOWN_ID section for values that you may get from other data sources that you would like to make into their own features.  Most of these values were not mapped because there just aren't enough of them to matter and/or you are not likely to get them from any other data sources. However, DUNS_NUMBER, GENDER, and WEBSITE_ADDRESS were found by reviewing these statistics!
+
+### Configuring Senzing
+
+*Note:* This only needs to be performed one time! In fact you may want to add these configuration updates to a master configuration file for all your data sources.
+
+From your Senzing project's python directory, run ...
+
+```console
+python3 G2ConfigTool.py <path-to-file>/ofac_config_updates.g2c
+```
+
+This will step you through the process of adding the data sources, features, attributes and other settings needed to load this watch list data into Senzing. After each command you will see a status message saying "success" or "already exists".  For instance, if you run the script twice, the second time through they will all say "already exists" which is OK.
+
+*WARNING:* The are a few commented out optional settings described in the configuration file as they affect performance and quality. Only use them if you understand and are OK with the effects.
 
 ### Loading into Senzing
 
-If you use the G2Loader program to load your data, from the /opt/senzing/g2/python directory ...
+If you use the G2Loader program to load your data, from your Senzing project's python directory, run ...
+
 
 ```console
 python G2Loader.py -f /<path-to-file>/ofac-yyyy-mm-dd.json
