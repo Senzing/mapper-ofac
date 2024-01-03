@@ -48,7 +48,7 @@ Place the the following files on a directory of your choice ...
 
 *Note:* The ofac_codes.csv will grow through time as new codes are added by them. These new codes will need to be mapped to their Senzing equivalents.
 New idTypes will need to be mapped to national_id, other_id, etc.   New idCountries will need to be mapped to their 3 character iso equivalent.   A good
-way to detect new codes is to run the ofac_mapper against the latest file and then check the ofac_codes.csv for any codes that have not been reviewed. Once you review and update them, run the mapper a second time pick up your updates.
+way to detect new codes is to run the ofac_mapper against the latest file and then check the ofac_codes.csv for any codes that have not been reviewed. Once you review and update them, run the mapper a second time to pick up your updates.
 
 ### Running the ofac_mapper mapper
 
