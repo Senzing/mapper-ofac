@@ -8,6 +8,7 @@ disable=
     missing-function-docstring,
     missing-module-docstring,
     multiple-statements,
+    possibly-used-before-assignment,
     redefined-builtin,
     redefined-outer-name,
     superfluous-parens,
