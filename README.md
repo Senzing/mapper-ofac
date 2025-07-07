@@ -99,9 +99,9 @@ This effectively doubles the number of name hashes created which improves the ch
 [https://www.treasury.gov/ofac/downloads]: https://www.treasury.gov/ofac/downloads
 [Installation]: #installation
 [Loading into Senzing]: #loading-into-senzing
-[ofac_codes.csv]: ofac_codes.csv
-[ofac_config_updates.g2c]: ofac_config_updates.g2c
-[ofac_mapper.py]: ofac_mapper.py
+[ofac_codes.csv]: src/ofac_codes.csv
+[ofac_config_updates.g2c]: src/ofac_config_updates.g2c
+[ofac_mapper.py]: src/ofac_mapper.py
 [Optional ini file parameter]: #optional-ini-file-parameter
 [Prerequisites]: #prerequisites
 [Running the ofac_mapper mapper]: #running-the-ofac_mapper-mapper
