@@ -12,22 +12,29 @@
     "EFEAT",
     "ICLA",
     "INPUTFILE",
+    "isort",
+    "kwargs",
     "LOGFILE",
     "MMSI",
     "mypy",
     "ofac",
     "OUTPUTFILE",
     "pylint",
+    "pytest",
     "Senzing",
+    "setuptools",
     "shellcheck",
     "stackoverflow",
     "sublists",
     "subrecord",
+    "venv",
     "WATCHLIST"
   ],
   "ignorePaths": [
     ".git/**",
     ".mypy_cache/**",
+    "development-requirements.txt",
+    "documentation-requirements.txt",
     "ofac_codes.csv"
   ]
 }
