@@ -21,6 +21,7 @@
     "isort",
     "jquery",
     "jsmath",
+    "kernelsam",
     "kwargs",
     "LOGFILE",
     "MMSI",
